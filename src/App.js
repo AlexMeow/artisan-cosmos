@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+// import ArtworkDetails from './ArtworkDetails';
+// import MemberCenter from './MemberCenter';
+import './vendor/bootstrap/css/bootstrap.min.css';
+import './assets/css/templatemo-cyborg-gaming.css';
+import './assets/css/owl.css';
+import './assets/css/animate.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" exact="true" element={<HomePage />} />
+        {/* <Route path="/artwork/:id" component={ArtworkDetails} />
+        <Route path="/member-center" component={MemberCenter} /> */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
