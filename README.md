@@ -1,3 +1,9 @@
+# Version Information
+Node.js: v20.14.0
+npm: 10.8.1
+React: 18.3.1
+Bootstrap: v5.2.0
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
