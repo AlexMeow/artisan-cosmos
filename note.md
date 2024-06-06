@@ -22,7 +22,17 @@ Database: artisan
 * about 不超過一定字數的自我介紹
 
 ## Table2: work
-TBD
++------------------------------------------------------------------------------------+
+| id(PK) | name  | tags | description | likes | saved-count | img-url | created-date |
++------------------------------------------------------------------------------------+
 
+id: INT
+name: VARCHAR(45)
+tags: TEXT (EX. [digital_art, colored art, ...])
+description: TEXT
+likes: INT (被按讚的次數)
+saved-count: INT (被收藏的次數)
+img-url: 可能是加密過的字串？
+created-date: DATE
 
-
+* description 採用 WYSIWYG(暫定)，可以內嵌影片
