@@ -4,6 +4,7 @@
    -> Admin帳號對使用者PO的圖可以管到多少？刪除？下架？修改內文？
 2. 考慮把CSS整合在一起
    -> 目前：模板內建的放在src\assets\css\templatemo-cyborg-gaming.css、自訂的放在src\App.css
+3. 改overlay字體排版、黑底透明度(用linear gradient)
 
 # 標準色
 primary `#2e68ff`
