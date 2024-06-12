@@ -8,6 +8,7 @@ import './vendor/bootstrap/css/bootstrap.min.css';
 import './assets/css/templatemo-cyborg-gaming.css';
 import './assets/css/owl.css';
 import './assets/css/animate.css';
+import './App.css'
 
 const App = () => {
   return (
