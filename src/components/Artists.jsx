@@ -97,11 +97,9 @@ const Artists = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-lg-12">
-                        <Link to="/browse">
-                            <div className="main-button">
-                                <a href="#">Discover Popular</a>
-                            </div>
+                    <div className="col-lg-12 d-flex justify-content-center">
+                        <Link to="/browse" className="main-button">
+                            Discover Popular
                         </Link>
                     </div>
                 </div>

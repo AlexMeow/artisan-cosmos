@@ -135,7 +135,7 @@ const LoginPageBody = () => {
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn">Login</button>
+                        <button type="submit" className="form-button">Login</button>
                     </form>
                 </div>
                 <div className="register-section">
@@ -189,13 +189,12 @@ const LoginPageBody = () => {
                                     color={eyeClicked ? "#000000" : "#A0A0A0"}
                                 />
                             </div>
-                            <div style={{ marginTop: "1rem", fontSize: "12px", textAlign: "center" }}>
+                            <div style={{ marginTop: "1rem", fontSize: "12px", textAlign: "start", display: "flex", justifyContent: "space-between" }}>
                                 {
                                     isMinLengthValid ?
                                         (<span style={{ color: "white" }} ><FontAwesomeIcon color="mediumaquamarine" icon={faCircleCheck} /> 8 Characters min.</span>) :
                                         (<span style={{ color: "gray" }}><FontAwesomeIcon icon={faCircleCheck} /> 8 Characters min.</span>)
                                 }
-                                <span style={{ margin: "0 10px" }}></span>
                                 {
                                     isDigitAndLetterRequiredValid ?
                                         (<span style={{ color: "white" }} ><FontAwesomeIcon color="mediumaquamarine" icon={faCircleCheck} /> At least one digit, one lower case and one upper case letter.</span>) :
@@ -203,7 +202,7 @@ const LoginPageBody = () => {
                                 }
                             </div>
                         </div>
-                        <button type="submit" className="btn">Register</button>
+                        <button type="submit" className="form-button">Register</button>
                     </form>
                 </div>
             </div>

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-// import ArtworkDetails from './ArtworkDetails';
-// import MemberCenter from './MemberCenter';
+import BrowsePage from './pages/BrowsePage';
+import ArtistsPage from './pages/ArtistsPage';
+import ProfilePage from './pages/ProfilePage';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './assets/css/templatemo-cyborg-gaming.css';
 import './assets/css/owl.css';
@@ -16,8 +17,9 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" exact="true" element={<HomePage />} />
-        {/* <Route path="/artwork/:id" component={ArtworkDetails} />
-        <Route path="/member-center" component={MemberCenter} /> */}
+        <Route path="/browse" exact="true" element={<BrowsePage />} />
+        <Route path="/artists" exact="true" element={<ArtistsPage />} />
+        <Route path="/profile" exact="true" element={<ProfilePage />} />
         <Route path="/login" exact="true" element={<LoginPage />} />
       </Routes>
     </Router>

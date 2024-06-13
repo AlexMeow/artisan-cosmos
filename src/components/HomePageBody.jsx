@@ -2,6 +2,7 @@ import React from 'react';
 // import popular01 from '..assets/images/';
 import Artists from './Artists';
 import Gallery from './Gallery';
+import { Link, NavLink } from 'react-router-dom';
 
 const HomePageBody = () => {
     return (
@@ -16,10 +17,10 @@ const HomePageBody = () => {
                                 <div className="col-lg-7">
                                     <div className="header-text">
                                         <h6>Welcome To Artisan Cosmos</h6>
-                                        <h4><em>Discover</em> Amazing Artworks from Talented Artists</h4>
-                                        <div className="main-button">
-                                            <a href="browse.html">Browse Now</a>
-                                        </div>
+                                        <h4><em>Discover</em> Amazing Artworks And <br></br>Talented Artists</h4>
+                                        <Link to="/browse" className="main-button">
+                                            Browse Now
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

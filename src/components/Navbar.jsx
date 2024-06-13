@@ -12,7 +12,7 @@ import $ from 'jquery';
 const Navbar = () => {
 
   const [menuActive, setMenuActive] = useState(false);
-  const navRef = useRef(null);
+  // const navRef = useRef(null);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -31,15 +31,15 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (navRef.current) {
-      if (menuActive) {
-        navRef.current.style.maxHeight = `${navRef.current.scrollHeight}px`;
-      } else {
-        navRef.current.style.maxHeight = '0';
-      }
-    }
-  }, [menuActive]);
+  // useEffect(() => {
+  //   if (navRef.current) {
+  //     if (menuActive) {
+  //       navRef.current.style.maxHeight = `${navRef.current.scrollHeight}px`;
+  //     } else {
+  //       navRef.current.style.maxHeight = '0';
+  //     }
+  //   }
+  // }, [menuActive]);
 
   return (
     <header className="header-area header-sticky">
@@ -67,7 +67,7 @@ const Navbar = () => {
                 </form>
               </div>
               {/* NAVIGATION MENU */}
-              <ul className={`nav ${menuActive ? 'show' : ''}`} ref={navRef}>
+              <ul className={`nav ${menuActive ? 'show' : ''}`}>
                 <li className="nav-item">
                   <NavLink exact to="/" className="nav-link" activeClassName="active">
                     Home
