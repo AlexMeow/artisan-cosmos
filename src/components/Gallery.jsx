@@ -4,13 +4,13 @@ import React from 'react';
 const artworks = [
     {
         id: 1,
-        imageUrl: 'https://via.placeholder.com/300x200',
+        imageUrl: require('../assets/images/5ijrtKutqlxcfCgE7oqORJ.png'),
         title: 'Artwork Title 1',
         author: 'Author Name 1',
     },
     {
         id: 2,
-        imageUrl: 'https://via.placeholder.com/300x200',
+        imageUrl: require('../assets/images/francesco-ZxNKxnR32Ng-unsplash.jpg'),
         title: 'Artwork Title 1',
         author: 'Author Name 1',
     },
@@ -40,7 +40,7 @@ const artworks = [
     },
     {
         id: 3,
-        imageUrl: 'https://via.placeholder.com/300x200',
+        imageUrl: require('../assets/images/MattHBD.png'),
         title: 'Artwork Title 1',
         author: 'Author Name 1',
     },
@@ -49,19 +49,7 @@ const artworks = [
         imageUrl: 'https://via.placeholder.com/300x200',
         title: 'Artwork Title 1',
         author: 'Author Name 1',
-    },
-    {
-        id: 3,
-        imageUrl: 'https://via.placeholder.com/300x200',
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-    },
-    {
-        id: 3,
-        imageUrl: 'https://via.placeholder.com/300x200',
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-    },
+    }
     // Add more artwork objects
 ];
 

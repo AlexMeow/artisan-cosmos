@@ -27,6 +27,7 @@ const HomePageBody = () => {
                         {/* ***** Banner End ***** */}
                         
                         {/* ***** Gallery Start ***** */}
+                        {/* 之後會用props傳圖片的資訊進去，固定放八張 */}
                         <Gallery />
                         {/* ***** Gallery End ***** */}
 
@@ -36,7 +37,7 @@ const HomePageBody = () => {
 
 
                         {/* ***** Gaming Library Start ***** */}
-                        <div className="gaming-library">
+                        {/* <div className="gaming-library">
                             <div className="col-lg-12">
                                 <div className="heading-section">
                                     <h4><em>Your Gaming</em> Library</h4>
@@ -77,7 +78,7 @@ const HomePageBody = () => {
                                     <a href="profile.html">View Your Library</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         {/* ***** Gaming Library End ***** */}
                     </div>
                 </div>
