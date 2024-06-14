@@ -4,7 +4,7 @@
    -> Admin帳號對使用者PO的圖可以管到多少？刪除？下架？修改內文？
 2. 考慮把CSS整合在一起
    -> 目前：模板內建的放在src\assets\css\templatemo-cyborg-gaming.css、自訂的放在src\App.css
-3. 改overlay字體排版、黑底透明度(用linear gradient)
+3. 改overlay字體排版、黑底透明度(用linear gradient) (done)
 
 # 標準色
 primary `#2e68ff`
@@ -69,10 +69,25 @@ created-date: DATE
 
 * description 採用 WYSIWYG or Markdown(暫定)，可以內嵌影片
 
+# DAO
+## Works CRUD
+1. findWorkById
+2. findAllWorks (不實作透過tag或作者篩選的功能，一律都讓前端做，減少呼叫後端DB的次數)
+3. deleteWorkById (需確認目前session，登入中使用者的upload-works中有包含此作品ID or 登入中的是admin才能刪，否則後端throw exception)
+4. updateWorkById (需確認目前session，登入中使用者的upload-works中有包含此作品ID or 登入中的是admin才能修改，否則後端throw exception)
+5. addWork
 
+## User CRUD
+1. findUserById
+2. findAllUser
+3. deleteUserById (***危險*** 僅admin可使用)
+4. updateUserById (需確認目前session，比對登入中使用者的ID確認身分 or 登入中的是admin才能修改，否則後端throw exception)
+5. addUser
+6. getUploadWorks
 
-
-
+# 登入相關API
+1. login
+2. checkAuthentication
 
 
 

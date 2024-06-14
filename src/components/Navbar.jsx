@@ -61,6 +61,7 @@ const Navbar = () => {
                     name="searchKeyword"
                     onKeyUp={(event) => {
                       // TBD
+                      // Just focus on artworks search.
                     }}
                   />
                   <i><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
