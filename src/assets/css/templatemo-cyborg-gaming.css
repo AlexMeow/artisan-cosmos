@@ -912,65 +912,79 @@ Most Popular Style
 --------------------------------------------- 
 */
 
-.most-popular {
+.artists {
   margin-top: 60px;
   padding: 30px;
   background-color: #1f2122;
   border-radius: 23px;
 }
 
-.most-popular .item {
+.artists .item {
+  cursor: pointer;
   background-color: #27292a;
   padding: 30px 15px;
   border-radius: 23px;
   margin-bottom: 30px;
+  transition: transform 0.2s ease-in-out;
 }
 
-.most-popular .item .item {
+.artists .item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 5px 5px rgba(104, 104, 104, 0.2);
+}
+
+.artists .item .item {
   padding: 0px;
   border-radius: 0px;
   background-color: transparent;
   margin-bottom: 0px;
 }
 
-.most-popular .item img {
+.artists .item img {
   border-radius: 23px;
+  height: 180px;
+  object-fit: cover;
 }
 
-.most-popular .item h4 {
+.artists .item h4 {
   font-size: 15px;
   margin-top: 20px;
   margin-bottom: 0px;
   display: inline-block;
 }
 
-.most-popular .item span {
+.artists .item span {
   color: #666;
   display: block;
   margin-top: 7px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 設置最大字符數為14 */
+  max-width: 14ch; 
 }
 
-.most-popular .item ul {
+.artists .item ul {
   float: right;
   margin-top: 20px;
 }
 
-.most-popular .item ul li {
+.artists .item ul li {
   text-align: right;
   color: #fff;
   font-size: 14px;
 }
 
-.most-popular .item ul li:first-child i {
-  color: yellow;
-}
-
-.most-popular .item ul li:last-child i {
+.artists .item ul li:first-child i {
   color: #618dff;
 }
 
-.most-popular .main-button {
+.artists .item ul li:last-child i {
+  color: #999;
+}
+
+.artists .main-button {
   text-align: center;
   /* margin-bottom: -53px; */
 }
@@ -1804,7 +1818,7 @@ body {
     min-height: 100%;
   }
 
-  .most-popular .item .inner-item {
+  .artists .item .inner-item {
     margin-bottom: 20px;
   }
 }

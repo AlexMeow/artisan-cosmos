@@ -89,7 +89,11 @@ created-date: DATE
 1. login
 2. checkAuthentication
 
-
-
-
+# Credit
+SVG示意圖來源: Storyset
+<a href="https://storyset.com/self-care">Self care illustrations by Storyset</a>
+其他插圖：
+https://www.irasutoya.com/p/figure.html
+真人照片：
+https://www.pexels.com/photo/man-sitting-on-the-mountain-edge-91224/
 

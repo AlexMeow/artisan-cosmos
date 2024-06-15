@@ -1,105 +1,101 @@
 import React from "react";
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faUser, faClock } from '@fortawesome/free-solid-svg-icons';
 
 const Artists = () => {
-    return (<div className="most-popular">
+
+    // Pseudo data
+    const artists = [
+        {
+          id: 1,
+          name: 'John Doe',
+          imageUrl: 'https://picsum.photos/200/300',
+          description: 'Digital artist specialized in surrealism.',
+          followers: 187,
+          memberSince: '2021-03-19'
+        },
+        {
+            id: 2,
+            name: '企鵝',
+            imageUrl: require('../assets/images/animal_chara_radio_penguin.png'),
+            description: '接案中',
+            followers: 9487,
+            memberSince: '2021-03-19'
+          },
+          {
+            id: 3,
+            name: 'Mary Jane',
+            imageUrl: require('../assets/images/messy bun-amico.png'),
+            description: 'Junior UI/UX',
+            followers: 187,
+            memberSince: '2021-03-19'
+          },
+          {
+            id: 4,
+            name: 'John Doe',
+            imageUrl: require('../assets/images/pexels-stefanstefancik-91224.jpg'),
+            description: 'Digital sculptor, 3D printing and modeling.',
+            followers: 187,
+            memberSince: '2021-03-19'
+          },
+          {
+            id: 5,
+            name: 'Chris Meow',
+            imageUrl: require('../assets/images/chris.jpg'),
+            description: '雷猴啊',
+            followers: 187,
+            memberSince: '2015-01-28'
+          },
+          {
+            id: 6,
+            name: 'Unicorn',
+            imageUrl: require('../assets/images/Unicorn with rainbow-cuate.png'),
+            description: "I'm a happy unicorn!",
+            followers: 187,
+            memberSince: '2021-03-19'
+          },
+          {
+            id: 7,
+            name: 'John Doe',
+            imageUrl: 'https://picsum.photos/200/300',
+            description: 'Digital artist specialized in surrealism.',
+            followers: 187,
+            memberSince: '2021-03-19'
+          },
+          {
+            id: 8,
+            name: '快樂小畫家',
+            imageUrl: require('../assets/images/art_live_painting.png'),
+            description: '自信小畫家',
+            followers: 187,
+            memberSince: '2021-03-19'
+          },
+        // Add more artist objects
+      ];
+
+    return (<div className="artists">
         <div className="row">
             <div className="col-lg-12">
                 <div className="heading-section">
-                    <h4><em>Most Popular</em> Right Now</h4>
+                    <h4><em>Recommended</em> Artists</h4>
                 </div>
                 <div className="row">
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-01.jpg')} alt="" />
-                            <h4>Fortnite<br /><span>Sandbox</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-02.jpg')} alt="" />
-                            <h4>PubG<br /><span>Battle S</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-03.jpg')} alt="" />
-                            <h4>Dota2<br /><span>Steam-X</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-04.jpg')} alt="" />
-                            <h4>CS-GO<br /><span>Legendary</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-lg-6">
-                        <div className="item">
-                            <div className="row">
-                                <div className="col-lg-6 col-sm-6">
-                                    <div className="item inner-item">
-                                        <img src={require('../assets/images/popular-05.jpg')} alt="" />
-                                        <h4>Mini Craft<br /><span>Legendary</span></h4>
-                                        <ul>
-                                            <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                            <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-sm-6">
-                                    <div className="item">
-                                        <img src={require('../assets/images/popular-06.jpg')} alt="" />
-                                        <h4>Eagles Fly<br /><span>Matrix Games</span></h4>
-                                        <ul>
-                                            <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                            <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                    {artists.map(artist => (
+                        <div className="col-lg-3 col-sm-6">
+                            <div className="item">
+                                <img src={artist.imageUrl} alt="" />
+                                <h4>{artist.name}<br /><span>{artist.description}</span></h4>
+                                <ul>
+                                    <li><i><FontAwesomeIcon icon={faUser} /></i> {artist.followers} </li>
+                                    <li><small><i><FontAwesomeIcon icon={faClock} /></i> {artist.memberSince} </small></li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-07.jpg')} alt="" />
-                            <h4>Warface<br /><span>Max 3D</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-sm-6">
-                        <div className="item">
-                            <img src={require('../assets/images/popular-08.jpg')} alt="" />
-                            <h4>Warcraft<br /><span>Legend</span></h4>
-                            <ul>
-                                <li><i className="fa fa-star"><FontAwesomeIcon icon={faStar} /></i> 4.8</li>
-                                <li><i className="fa fa-download"><FontAwesomeIcon icon={faDownload} /></i> 2.3M</li>
-                            </ul>
-                        </div>
-                    </div>
+                    ))}
                     <div className="col-lg-12 d-flex justify-content-center">
-                        <Link to="/browse" className="main-button">
-                            Discover Popular
+                        <Link to="/artists" className="main-button">
+                            Discover More Artists
                         </Link>
                     </div>
                 </div>
