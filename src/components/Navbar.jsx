@@ -20,7 +20,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 991) {
+      if (window.innerWidth > 1200) {
         setMenuActive(false);
       }
     };
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <form id="search" action="#">
                   <input
                     type="text"
-                    placeholder="Type Something"
+                    placeholder="Search Artworks..."
                     id="searchText"
                     name="searchKeyword"
                     onKeyUp={(event) => {
@@ -91,14 +91,14 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink to="/login" className="nav-link" activeClassName="active">
-                    Login
+                    Sign In / Sign Up
                   </NavLink>
                 </li>
               </ul>
               {/* MENU TRIGGER */}
-              <a className={`menu-trigger ${menuActive ? 'active' : ''}`} onClick={toggleMenu}>
+              <span className={`menu-trigger ${menuActive ? 'active' : ''}`} onClick={toggleMenu}>
                 <span>Menu</span>
-              </a>
+              </span>
             </nav>
           </div>
         </div>

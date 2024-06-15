@@ -1,3 +1,16 @@
+# Credit
+SVG示意圖來源: Storyset
+https://storyset.com/self-care
+<br>
+
+其他插圖：
+https://www.irasutoya.com/p/figure.html
+<br>
+
+真人照片：
+https://www.pexels.com/photo/man-sitting-on-the-mountain-edge-91224/
+
+
 # Version Information
 Node.js: v20.14.0\
 npm: 10.8.1\
