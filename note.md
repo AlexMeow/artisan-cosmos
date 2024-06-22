@@ -5,6 +5,10 @@
 2. 考慮把CSS整合在一起
    -> 目前：模板內建的放在src\assets\css\templatemo-cyborg-gaming.css、自訂的放在src\App.css
 3. 改overlay字體排版、黑底透明度(用linear gradient) (done)
+4. Search Bar的實作：useEffect監聽onChange，只要有輸入關鍵字就自動切換到browse分頁並顯示filter過後的結果
+5. Browse頁面上的tabs，用Bootstrap的Badges，按下去就等同於輸入對應關鍵字(觸發useEffect監聽onChange，同第4點)
+6. Artists的頁面自己再做另一個search bar
+7. ArtworkDetails.jsx => 展示單一作品的頁面，從父元件(Gallery)拿props
 
 # 標準色
 primary `#2e68ff`

@@ -603,7 +603,7 @@ Header Style
 .header-area .main-nav .nav li:last-child:hover a,
 .header-area .main-nav .nav li:last-child a.active {
   color: #fff !important;
-  background-color: #2e68ff !important;
+  background-color: #2e68ff;
 }
 
 .background-header .main-nav .nav li:hover a,
@@ -667,7 +667,7 @@ Header Style
   width: 30px;
   height: 2px;
   left: 0;
-  width: 75%;
+  /* width: 75%; */
 }
 
 .background-header .main-nav .menu-trigger span:before,
@@ -741,6 +741,11 @@ Header Style
 }
 
 @media (max-width: 1200px) {
+  .header-area {
+    display: block;
+    top: 0;
+  }
+
   .header-area .main-nav .nav li {
     padding-left: 10px;
     padding-right: 10px;
@@ -748,12 +753,6 @@ Header Style
 
   .header-area .main-nav:before {
     display: none;
-  }
-}
-
-@media (max-width: 992px) {
-  .header-area {
-    top: 0;
   }
 
   .header-area .main-nav {
@@ -769,7 +768,7 @@ Header Style
   .header-area .main-nav .logo {
     position: absolute;
     left: 30px;
-    top: 25px;
+    top: 20px;
   }
 
   .background-header .main-nav .logo {
@@ -786,6 +785,10 @@ Header Style
     right: 70px;
   }
 
+  .header-area.header-sticky {
+    min-height: 80px;
+  }
+
   .header-area.header-sticky .nav li a:hover,
   .header-area.header-sticky .nav li a.active {
     color: #2e68ff !important;
@@ -797,7 +800,7 @@ Header Style
   }
 
   .header-area {
-    background-color: #f7f7f7;
+    background-color: #f0f0f0;
     padding: 0px 15px;
     height: 80px;
     box-shadow: none;
@@ -818,27 +821,24 @@ Header Style
 
   .header-area .main-nav {
     overflow: hidden;
+    padding: 15px 0 0 0;
   }
 
   .header-area .main-nav .nav {
     float: none;
     width: 100%;
-    display: none;
-    -webkit-transition: all 0s ease 0s;
-    -moz-transition: all 0s ease 0s;
-    -o-transition: all 0s ease 0s;
-    transition: all 0s ease 0s;
     margin-left: 0px;
   }
 
   .header-area.header-sticky .nav {
     margin-top: 65px !important;
     text-align: center;
+    max-height: 0; /* 設置初始最大高度 */
+    transition: max-height 0.2s ease-out; /* 設置動畫效果 */
   }
 
   .header-area.header-sticky .nav.show {
-    transition: max-height 0.2s ease-out;
-    display: block;
+    max-height: 300px; /* 展開時的最大高度，可以調整 */
   }
 
   .background-header.header-sticky .nav {
@@ -851,8 +851,8 @@ Header Style
 
   .header-area .main-nav .nav li {
     width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #eee;
+    background: #f0f0f0;
+    border-bottom: 1px solid #dddddd;
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
@@ -862,7 +862,7 @@ Header Style
     line-height: 50px !important;
     padding: 0px !important;
     border: none !important;
-    background: #fff !important;
+    background: #f0f0f0 !important;
     color: #1e1e1e !important;
   }
 
@@ -876,8 +876,8 @@ Header Style
   }
 
   .header-area .main-nav .nav li:last-child a:hover {
-    color: #618dff !important;
-    background-color: transparent !important;
+    color: #2e68ff !important;
+    background-color: #fff !important;
   }
 
   .header-area .main-nav .nav li.has-sub ul.sub-menu {
@@ -916,6 +916,12 @@ Header Style
   .header-area .main-nav .nav li.submenu:hover ul,
   .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
+  }
+
+  .header-area .main-nav .nav li:last-child a.active {
+    color: #2e68ff !important;
+    opacity: 1;
+    background: #f0f0f0;
   }
 }
 
@@ -1008,7 +1014,7 @@ Most Popular Style
   overflow: hidden;
   text-overflow: ellipsis;
   /* 設置最大字符數為14 */
-  max-width: 14ch; 
+  max-width: 14ch;
 }
 
 .artists .item ul {
@@ -1869,7 +1875,25 @@ body {
   }
 }
 
-@media (max-width: 992px) {
+
+@media (max-width: 1200px) {
+  .artists .item ul {
+    display: none;
+  }
+
+  .header-area .main-nav .nav li {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .header-area .main-nav .logo {
+    margin-right: 30px;
+    border-right: none;
+  }
+
+  .gaming-library .item ul li {
+    width: 16%;
+  }
 
   .background-header {
     display: inline-block;
@@ -1908,18 +1932,14 @@ body {
   }
 }
 
-@media (max-width: 1200px) {
-  .header-area .main-nav .nav li {
-    padding-right: 5px;
-    padding-left: 5px;
+@media (min-width: 576px) {
+  .col-sm-6 {
+      flex: 0 0 auto;
   }
+}
 
-  .header-area .main-nav .logo {
-    margin-right: 30px;
-    border-right: none;
-  }
-
-  .gaming-library .item ul li {
-    width: 16%;
+@media (max-width: 992px) {
+  .artists .item ul {
+    display: block;
   }
 }
