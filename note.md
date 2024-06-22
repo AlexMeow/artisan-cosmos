@@ -10,6 +10,10 @@
 6. Artists的頁面自己再做另一個search bar
 7. ArtworkDetails.jsx => 展示單一作品的頁面，從父元件(Gallery)拿props
 
+# MEMO
+前端資料流入口(暫定)
+Gallery 或 ArtworkDetailsPage(目前在這)
+
 # 標準色
 primary `#2e68ff`
 secondary `#618dff`
