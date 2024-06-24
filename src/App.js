@@ -6,6 +6,7 @@ import BrowsePage from './pages/BrowsePage';
 import ArtistsPage from './pages/ArtistsPage';
 import ProfilePage from './pages/ProfilePage';
 import ArtworkDetailsPage from './pages/ArtworksDetailsPage';
+import ArtistProfilePage from './pages/ArtistProfilePage';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './assets/css/templatemo-cyborg-gaming.css';
 import './assets/css/owl.css';
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/profile" exact="true" element={<ProfilePage />} />
         <Route path="/login" exact="true" element={<LoginPage />} />
         <Route path="/artwork/:id" element={<ArtworkDetailsPage />} />
+        <Route path="/artist/:id" element={<ArtistProfilePage />} />
       </Routes>
     </Router>
   );
