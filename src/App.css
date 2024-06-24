@@ -267,6 +267,11 @@
   background-color: #0d95e8;
 } */
 
+.user-avatar {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
 
 @media (max-width: 768px) {
   .login-container {

@@ -32,6 +32,8 @@ const ArtworkDetails = ({ artwork }) => {
                         <button className="btn btn-outline-secondary secondary-button">
                             <FontAwesomeIcon icon={faStar} /> Favorite
                         </button>
+                        {/* TBD */}
+                        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{height: "60px", width: "217px"}} />
                     </div>
                     <hr />
                     {/* <div>

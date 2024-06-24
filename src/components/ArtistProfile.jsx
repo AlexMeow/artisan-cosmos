@@ -1,5 +1,7 @@
 import React from "react";
 import Gallery from "./Gallery";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ArtistProfile = ({ artist }) => {
 
@@ -54,14 +56,14 @@ const ArtistProfile = ({ artist }) => {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div className="col-md-3">
-                    <img src={artist.imageUrl} className="img-fluid rounded-circle" alt="Artist Photo" />
+                <div className="col-md-3 d-flex justify-content-center">
+                    <img src={artist.imageUrl} className="user-avatar rounded-circle" alt="Artist Photo" />
                 </div>
                 <div className="col-md-9">
                     <h1>{artist.name}</h1>
                     <p>{artist.description}</p>
-                    <button className="btn btn-outline-primary main-button">
-                        Follow
+                    <button className="btn btn-outline-primary main-button mt-3">
+                        <FontAwesomeIcon icon={faUserPlus} /> Follow
                     </button>
                 </div>
             </div>
