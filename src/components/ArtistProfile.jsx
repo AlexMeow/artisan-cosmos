@@ -62,9 +62,16 @@ const ArtistProfile = ({ artist }) => {
                 <div className="col-md-9">
                     <h1>{artist.name}</h1>
                     <p>{artist.description}</p>
-                    <button className="btn btn-outline-primary main-button mt-3">
-                        <FontAwesomeIcon icon={faUserPlus} /> Follow
-                    </button>
+
+                    <div className="d-flex align-items-center mt-3">
+                        <button className="btn btn-outline-primary main-button">
+                            <FontAwesomeIcon icon={faUserPlus} /> Follow
+                        </button>
+                        {/* TBD */}
+                        <img className="btn" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{height: "60px", width: "217px", marginLeft: "1rem"}} />
+
+                    </div>
+
                 </div>
             </div>
             <hr className="my-4" />

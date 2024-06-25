@@ -210,6 +210,10 @@ p {
   margin-bottom: 0px;
 }
 
+label {
+  color: white;
+}
+
 ::selection {
   background: #2e68ff;
   color: #fff;
