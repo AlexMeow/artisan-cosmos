@@ -12,11 +12,11 @@ const ArtworkDetails = ({ artwork }) => {
                 <div className="col-md-4">
                     <h2 className="mt-3">{artwork.title}</h2>
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-3">
                             {/* TBD: move inline style into .css file */}
                             <img style={{ borderRadius: "50%", width: "100px", height: "100px", objectFit: "cover" }} src={artwork.artist.imageUrl}></img>
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-9">
                             <p className="text-muted">by <a href={`/artist/${artwork.artist.id}`}>{artwork.artist.name}</a></p>
                             <p>{artwork.artist.description}</p>
                         </div>
