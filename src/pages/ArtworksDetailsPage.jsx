@@ -8,7 +8,11 @@ const artworks = [
     {
         id: 1,
         title: 'Beautiful Landscape',
-        imageUrl: require('../assets/images/irene-kredenets-KStSiM1UvPw-unsplash.jpg'),
+        imageUrl: [
+            require('../assets/images/irene-kredenets-KStSiM1UvPw-unsplash.jpg'),
+            require('../assets/images/Fred.png'),
+            require('../assets/images/francesco-ZxNKxnR32Ng-unsplash.jpg')
+        ],
         description: 'This is a beautiful landscape artwork.',
         artist: {
             id: 1,

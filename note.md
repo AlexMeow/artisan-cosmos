@@ -24,37 +24,41 @@ Database: artisan
 
 ## Table1: user
 +-------------------------------------------------------------------------------------+
-| id(PK) | name | password | tags | about | upload-works | saved-works | created-date |
+| id(PK) | name | password | tags |  bio  | upload-works | saved-works | created-date |
 |-------------------------------------------------------------------------------------|
-|   01   | John | (base64) |      |       | [38, 05, 12] | [22, 34, 53]|  2022-07-20  |
+|   01   | John | (hased)  |      |       | [38, 05, 12] | [22, 34, 53]|  2022-07-20  |
 |-------------------------------------------------------------------------------------|
-|   02   | Meow | (base64) |      |       | [01, 11    ] | [02, 08, 16]|  2023-01-21  |
+|   02   | Meow | (hased)  |      |       | [01, 11    ] | [02, 08, 16]|  2023-01-21  |
 |-------------------------------------------------------------------------------------|
-|   03   | BABA | (base64) |      |       | [01, 11    ] | [02, 08, 16]|  2024-04-12  |
+|   03   | BABA | (hased)  |      |       | [01, 11    ] | [02, 08, 16]|  2024-04-12  |
 +-------------------------------------------------------------------------------------+
 
-+------------------------------------+
-|     follower    |     following    | 
-|------------------------------------|
-| [12, 2323, 356] | [123, 3, 89, 64] |
-+------------------------------------+
++----------------------------------------------------------+
+|     follower    |     following    | email | liked-works |
+|------------------------------------|-------|-------------+
+| [12, 2323, 356] | [123, 3, 89, 64] |       | [22, 34, 53]|
++----------------------------------------------------------+
 
 id: INT
+email: VARCHAR(255) 
 name: VARCHAR(45)
-password: TEXT(base64 + hash加密過)
+password: TEXT(hash加鹽加密過)
 tags: 
-  * DB: TEXT (EX. [digital_art, colored art, ...])
+  * DB: TEXT (EX. digital_art, colored art, ...)
   * PO: List<String>
-about: TEXT
-upload-works: 存的是上傳的作品(work)的id (FK)
-  * DB: TEXT (EX. [38, 05, 12, ...])
+bio: TEXT
+upload-works: 上傳的作品(work)的id (FK)
+  * DB: TEXT (EX. 38, 05, 12, ...)
   * PO: List<int>
 saved-works: 收藏的作品(work)的id (FK)
-  * DB: TEXT (EX. [38, 05, 12, ...])
+  * DB: TEXT (EX. 38, 05, 12, ...)
+  * PO: List<int>
+liked-works: 按讚過的作品(work)的id (FK)
+  * DB: TEXT (EX. 38, 05, 12, ...)
   * PO: List<int>
 created-date: DATE
-follower: 存的是追蹤者(user)的id
-  * DB: TEXT (EX. [12, 2323, 356, ...])
+follower: 追蹤者(user)的id
+  * DB: TEXT (EX. 12, 2323, 356, ...)
   * PO: List<int>
 
 * works存的是works的id(FK)陣列 
@@ -62,20 +66,23 @@ follower: 存的是追蹤者(user)的id
 * about 不超過一定字數的自我介紹
 
 ## Table2: work
-+------------------------------------------------------------------------------------------------+
-| id(PK) | name  | tags | description | likes | saved-count | img-url | created-date | arthur_id |
-+------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------+
+| id(PK) | name  | tags | description | likes | saved-count | img-urls | created-date | author_id |
++-------------------------------------------------------------------------------------------------+
 
 id: INT
-name: VARCHAR(45)
-tags: TEXT (EX. [digital_art, colored art, ...])
+name: VARCHAR(255)
+tags: TEXT (EX. digital_art, colored art, ...)
 description: TEXT
 likes: INT (被按讚的次數)
 saved-count: INT (被收藏的次數)
-img-url: 可能是加密過的字串？
+img-urls: TEXT(base64)陣列
+  * DB: TEXT (EX. aHR0cHM6Ly9tdXNpYy5hcHBsZS5jb20vdHcv, aHR0cHM6Ly9kaXNjb3JkLmNvbS8=, ...)
+  * PO: List<String>
 created-date: DATE
+author_id: FK, 作者的user id
 
-* description 採用 WYSIWYG or Markdown(暫定)，可以內嵌影片
+* description 採用 Markdown(暫定)
 
 # DAO
 ## Works CRUD

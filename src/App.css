@@ -273,6 +273,17 @@
   object-fit: cover;
 }
 
+.artist-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.artwork-description {
+  margin: 1rem 0;
+}
+
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;

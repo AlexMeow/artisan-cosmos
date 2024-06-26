@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import LoginPageBody from '../components/LoginPageBody';
+import Login from '../components/Login';
 import Footer from '../components/Footer';
 
 const LoginPage = () => {
   return (
     <div>
       <Navbar />
-      <LoginPageBody />
+      <Login />
       <Footer />
     </div>
   );
