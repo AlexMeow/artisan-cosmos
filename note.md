@@ -8,7 +8,8 @@
 4. Search Bar的實作：useEffect監聽onChange，只要有輸入關鍵字就自動切換到browse分頁並顯示filter過後的結果
 5. Browse頁面上的tabs，用Bootstrap的Badges，按下去就等同於輸入對應關鍵字(觸發useEffect監聽onChange，同第4點)
 6. Artists的頁面自己再做另一個search bar
-7. ArtworkDetails.jsx => 展示單一作品的頁面，從父元件(Gallery)拿props
+7. ArtworkDetails.jsx => 展示單一作品的頁面，從父元件(Gallery)拿props (done)
+8. 考慮用recaptcha驗證
 
 # MEMO
 前端資料流入口(暫定)

@@ -7,7 +7,7 @@ const ArtworkDetails = ({ artwork }) => {
     return (
         <div className="container my-5">
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-7">
                     <Carousel>
                         {artwork.imageUrl.map((url, index) => (
                             <Carousel.Item key={index}>
@@ -20,6 +20,7 @@ const ArtworkDetails = ({ artwork }) => {
                         ))}
                     </Carousel>
                 </div>
+                <div className="col-md-1"></div>
                 <div className="col-md-4">
                     <h2 className="mt-3">{artwork.title}</h2>
                     <div className="row">
