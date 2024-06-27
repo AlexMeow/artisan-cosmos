@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 
 const LoginPageBody = () => {
     const [registerData, setRegisterData] = useState({
-        username: '',
+        name: '',
         email: '',
         password: '',
     });
@@ -62,32 +62,37 @@ const LoginPageBody = () => {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         try {
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(registerData.password, salt);
             const dataToSend = {
-                ...registerData,
-                password: hashedPassword,
+                ...registerData
             };
             // 發送dataToSend到後端
             console.log('Register Data:', dataToSend);
+            const res = await fetch("http://localhost:8080/api/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // TBD
+                    // 'Authorization': `Bearer ${jwt}`
+                },
+                body: JSON.stringify(dataToSend)
+            });
+            const message = await res.json();
+            console.log(message);
         } catch (error) {
-            console.error('Error hashing password:', error);
+            console.error('Error:', error);
         }
     };
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(loginData.password, salt);
             const dataToSend = {
-                ...loginData,
-                password: hashedPassword,
+                ...loginData
             };
             // 發送dataToSend到後端
             console.log('Login Data:', dataToSend);
         } catch (error) {
-            console.error('Error hashing password:', error);
+            console.error('Error:', error);
         }
     };
 
@@ -160,7 +165,7 @@ const LoginPageBody = () => {
                                     <input
                                         type="text"
                                         id="registerUsername"
-                                        name="username"
+                                        name="name"
                                         value={registerData.username}
                                         onChange={handleRegisterChange}
                                         required
