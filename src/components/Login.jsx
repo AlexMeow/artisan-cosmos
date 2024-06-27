@@ -91,6 +91,18 @@ const LoginPageBody = () => {
             };
             // 發送dataToSend到後端
             console.log('Login Data:', dataToSend);
+            const res = await fetch("http://localhost:8080/api/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // TBD
+                    // 'Authorization': `Bearer ${jwt}`
+                },
+                body: JSON.stringify(dataToSend)
+            });
+            const token = await res.text();
+            console.log(token);
+            localStorage.setItem("jwt", token);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -103,28 +115,28 @@ const LoginPageBody = () => {
                 <div className="login-page-body">
                     <h3>Login with Social Media</h3>
                     <div className="social-login">
-                        <button className="social-btn" onClick={(e) => { 
-                                e.preventDefault();
-                                alert("Coming Soon!");
-                            }}>
+                        <button className="social-btn" onClick={(e) => {
+                            e.preventDefault();
+                            alert("Coming Soon!");
+                        }}>
                             <FontAwesomeIcon size="xl" icon={faGoogle} />
                         </button>
-                        <button className="social-btn" onClick={(e) => { 
-                                e.preventDefault();
-                                alert("Coming Soon!");
-                            }}>
+                        <button className="social-btn" onClick={(e) => {
+                            e.preventDefault();
+                            alert("Coming Soon!");
+                        }}>
                             <FontAwesomeIcon size="xl" icon={faFacebookF} />
                         </button>
-                        <button className="social-btn" onClick={(e) => { 
-                                e.preventDefault();
-                                alert("Coming Soon!");
-                            }}>
+                        <button className="social-btn" onClick={(e) => {
+                            e.preventDefault();
+                            alert("Coming Soon!");
+                        }}>
                             <FontAwesomeIcon size="xl" icon={faTwitter} />
                         </button>
-                        <button className="social-btn" onClick={(e) => { 
-                                e.preventDefault();
-                                alert("Coming Soon!");
-                            }}>
+                        <button className="social-btn" onClick={(e) => {
+                            e.preventDefault();
+                            alert("Coming Soon!");
+                        }}>
                             <FontAwesomeIcon size="xl" icon={faLinkedin} />
                         </button>
                     </div>
