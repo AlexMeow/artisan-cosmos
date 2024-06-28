@@ -9,8 +9,8 @@ const ArtworkDetails = ({ artwork }) => {
             <div className="row">
                 <div className="col-md-7">
                     {
-                        artwork.imageUrl.length > 1 ? (<Carousel>
-                            {artwork.imageUrl.map((url, index) => (
+                        artwork.imgUrls.length > 1 ? (<Carousel>
+                            {artwork.imgUrls.map((url, index) => (
                                 <Carousel.Item key={index}>
                                     <img
                                         className="d-block w-100"
@@ -21,7 +21,7 @@ const ArtworkDetails = ({ artwork }) => {
                             ))}
                         </Carousel>) : (<img
                             className="d-block w-100"
-                            src={artwork.imageUrl}
+                            src={artwork.imgUrls[0]}
                             alt={`${artwork.title}`}
                         />)
                     }
@@ -31,7 +31,7 @@ const ArtworkDetails = ({ artwork }) => {
                     <h2 className="mt-3">{artwork.title}</h2>
                     <div className="row">
                         <div className="col-md-3">
-                            <img className="artist-image" src={artwork.artist.imageUrl}></img>
+                            <img className="artist-image" src={artwork.artist.avatarUrl}></img>
                         </div>
                         <div className="col-md-9">
                             <p className="text-muted">by <a href={`/artist/${artwork.artist.id}`}>{artwork.artist.name}</a></p>
