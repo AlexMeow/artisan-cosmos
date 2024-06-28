@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faFacebookF, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import bcrypt from 'bcryptjs';
+import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPageBody = () => {
+    const navigate = useNavigate();
+
     const [registerData, setRegisterData] = useState({
         name: '',
         email: '',
@@ -76,8 +80,88 @@ const LoginPageBody = () => {
                 },
                 body: JSON.stringify(dataToSend)
             });
-            const message = await res.json();
-            console.log(message);
+
+            if (res.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Welcome",
+                    text: "Successfully Registered!",
+                });
+                // 登入
+                const { email, password } = registerData;
+
+                try {
+                    const dataToSend = {
+                        email,
+                        password
+                    };
+                    // 發送dataToSend到後端
+                    console.log('Login Data:', dataToSend);
+                    const res = await fetch("http://localhost:8080/api/users/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(dataToSend)
+                    });
+
+                    if (res.ok) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Welcome",
+                            text: "Successfully Login!",
+                        });
+
+                        const token = await res.text();
+                        console.log(token);
+
+                        // Store token into localStorage
+                        localStorage.setItem("jwt", token);
+
+                        // 解析 JWT 獲取 role 並記錄id
+                        const decodedToken = jwtDecode(token);
+                        const userRole = decodedToken.role;
+                        localStorage.setItem("id", decodedToken.id);
+                        console.log('User Role:', userRole);
+
+                        // 跳轉到個人頁面
+                        navigate(`/artist/${localStorage.getItem("id")}`);
+
+                    } else {
+                        const message = await res.text();
+                        if (res.status === 401) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Wrong E-mail or Password!",
+                                footer: '<a href="#">Forgot E-mail or Password?</a>'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: message,
+                                footer: '<a href="#">Forgot E-mail or Password?</a>'
+                            });
+                        }
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+
+
+            } else {
+                const message = await res.text();
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: message,
+                    footer: '<a href="#">Forgot E-mail or Password?</a>'
+                });
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            // console.log(message);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -100,11 +184,50 @@ const LoginPageBody = () => {
                 },
                 body: JSON.stringify(dataToSend)
             });
-            const token = await res.text();
-            console.log(token);
-            localStorage.setItem("jwt", token);
+
+            if (res.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Welcome",
+                    text: "Successfully Login!",
+                });
+
+                const token = await res.text();
+                console.log(token);
+
+                // Store token into localStorage
+                localStorage.setItem("jwt", token);
+
+                // 解析 JWT 獲取 role 並記錄id
+                const decodedToken = jwtDecode(token);
+                const userRole = decodedToken.role;
+                localStorage.setItem("id", decodedToken.id);
+                console.log('User Role:', userRole);
+
+                // 跳轉到個人頁面
+                navigate(`/artist/${localStorage.getItem("id")}`);
+
+            } else {
+                const message = await res.text();
+                if (res.status === 401) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Wrong E-mail or Password!",
+                        footer: '<a href="#">Forgot E-mail or Password?</a>'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: message,
+                        footer: '<a href="#">Forgot E-mail or Password?</a>'
+                    });
+                }
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
         } catch (error) {
-            console.error('Error:', error);
+            console.error(error);
         }
     };
 
