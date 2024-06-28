@@ -105,6 +105,10 @@ author_id: FK, 作者的user id
 1. login
 2. checkAuthentication
 
+# 使用技術
+前：React, Bootstrap
+後：Spring Boot, JPA, MySQL, BCrypt, jsonwebtoken
+
 # Credit
 SVG示意圖來源: Storyset
 <a href="https://storyset.com/self-care">Self care illustrations by Storyset</a>

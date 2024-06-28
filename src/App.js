@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import ArtworkDetailsPage from './pages/ArtworksDetailsPage';
 import ArtistProfilePage from './pages/ArtistProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import UploadArtworkPage from './pages/UploadArtworkPage';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './assets/css/templatemo-cyborg-gaming.css';
 import './assets/css/owl.css';
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/artwork/:id" element={<ArtworkDetailsPage />} />
         <Route path="/artist/:id" element={<ArtistProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/upload" element={<UploadArtworkPage />} />
       </Routes>
     </Router>
   );
