@@ -9,7 +9,7 @@ const Gallery = ({ artworks }) => {
             {artworks.map((artwork) => (
                 <div key={artwork.id} className="gallery-item">
                     <Link to={`/artwork/${artwork.id}`}>
-                        <img src={artwork.imageUrl} alt={artwork.title} />
+                        <img src={artwork.imageUrl[0]} alt={artwork.title} />
                         <div className="overlay">
                             <div className="text">
                                 <h4>{artwork.title}</h4>

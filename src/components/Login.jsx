@@ -240,25 +240,25 @@ const LoginPageBody = () => {
                     <div className="social-login">
                         <button className="social-btn" onClick={(e) => {
                             e.preventDefault();
-                            alert("Coming Soon!");
+                            Swal.fire("Coming Soon!");
                         }}>
                             <FontAwesomeIcon size="xl" icon={faGoogle} />
                         </button>
                         <button className="social-btn" onClick={(e) => {
                             e.preventDefault();
-                            alert("Coming Soon!");
+                            Swal.fire("Coming Soon!");
                         }}>
                             <FontAwesomeIcon size="xl" icon={faFacebookF} />
                         </button>
                         <button className="social-btn" onClick={(e) => {
                             e.preventDefault();
-                            alert("Coming Soon!");
+                            Swal.fire("Coming Soon!");
                         }}>
                             <FontAwesomeIcon size="xl" icon={faTwitter} />
                         </button>
                         <button className="social-btn" onClick={(e) => {
                             e.preventDefault();
-                            alert("Coming Soon!");
+                            Swal.fire("Coming Soon!");
                         }}>
                             <FontAwesomeIcon size="xl" icon={faLinkedin} />
                         </button>

@@ -3,7 +3,7 @@ import Gallery from "./Gallery";
 import { faUserPlus, faUpload, faPencil, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ArtistProfile = ({ artist }) => {
+const Browse = () => {
 
     // TBD: 從後端拉過來的artwork裡面用.find()篩選
     // artworks.find(artwork => artwork.arthurId === artist.id)
@@ -55,51 +55,11 @@ const ArtistProfile = ({ artist }) => {
 
     return (
         <div className="container mt-5">
-            <div className="row">
-                <div className="col-md-3 d-flex justify-content-center">
-                    <img src={artist.imageUrl} className="user-avatar rounded-circle" alt="Artist Photo" />
-                </div>
-                <div className="col-md-9">
-                    <h1>{artist.name}</h1>
-                    <p>{artist.description}</p>
-
-                    {
-                        artist.id == localStorage.getItem("id") ?
-                            (<div className="d-flex align-items-center mt-3">
-                                <button className="btn btn-outline-primary main-button">
-                                    <FontAwesomeIcon icon={faPencil} /> Edit Bio
-                                </button>
-                                <button className="btn btn-outline-primary main-button ms-4">
-                                    <FontAwesomeIcon icon={faGear} /> Settings
-                                </button>
-
-                            </div>) :
-                            (<div className="d-flex align-items-center mt-3">
-                                <button className="btn btn-outline-primary main-button">
-                                    <FontAwesomeIcon icon={faUserPlus} /> Follow
-                                </button>
-                                {/* TBD */}
-                                <img className="btn" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{ height: "60px", width: "217px", marginLeft: "1rem" }} />
-
-                            </div>)
-                    }
-
-
-
-                </div>
-            </div>
-            <hr className="my-4" />
+            <hr />
             <h2>Artwork Gallery</h2>
-            {
-                artist.id == localStorage.getItem("id") ?
-                    (<button className="btn btn-outline-primary main-button mt-4 mb-4">
-                        <FontAwesomeIcon icon={faUpload} /> Upload New Artwork
-                    </button>) :
-                    (<></>)
-            }
             <Gallery artworks={artworks} />
         </div>
     );
 }
 
-export default ArtistProfile;
+export default Browse;

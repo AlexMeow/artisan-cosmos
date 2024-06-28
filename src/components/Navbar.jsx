@@ -7,15 +7,18 @@ import '../assets/css/animate.css';
 import LOGO from '../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import $ from 'jquery';
 
 const Navbar = () => {
-
   const [menuActive, setMenuActive] = useState(false);
-  // const navRef = useRef(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("id");
   };
 
   useEffect(() => {
@@ -31,15 +34,21 @@ const Navbar = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (navRef.current) {
-  //     if (menuActive) {
-  //       navRef.current.style.maxHeight = `${navRef.current.scrollHeight}px`;
-  //     } else {
-  //       navRef.current.style.maxHeight = '0';
-  //     }
-  //   }
-  // }, [menuActive]);
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem('jwt');
+      setIsLoggedIn(!!token);
+    };
+
+    checkLoginStatus();
+
+    // 新增監聽器
+    window.addEventListener('storage', checkLoginStatus);
+    return () => {
+      window.removeEventListener('storage', checkLoginStatus);
+    };
+  }, [])
+
 
   return (
     <header className="header-area header-sticky">
@@ -90,9 +99,11 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/login" className="nav-link" activeClassName="active">
+                  {!isLoggedIn ? (<NavLink to="/login" className="nav-link" activeClassName="active">
                     Sign In / Sign Up
-                  </NavLink>
+                  </NavLink>) : (<NavLink to="/" className="nav-link" activeClassName="active" onClick={logout}>
+                    Log out
+                  </NavLink>)}
                 </li>
               </ul>
               {/* MENU TRIGGER */}
