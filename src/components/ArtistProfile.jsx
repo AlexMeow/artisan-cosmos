@@ -3,6 +3,7 @@ import Gallery from "./Gallery";
 import { faUserPlus, faUpload, faPencil, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ArtistProfile = ({ artist }) => {
 
@@ -59,11 +60,14 @@ const ArtistProfile = ({ artist }) => {
     useEffect(() => {
         const fetchArtworks = async () => {
             try {
+                Swal.showLoading();
                 const res = await fetch(`http://localhost:8080/api/works/author/${artist.id}`);
                 const data = await res.json();
                 setArtworks(data);
             } catch (error) {
                 console.error('Error fetching artworks:', error);
+            } finally {
+                Swal.close();
             }
         };
 

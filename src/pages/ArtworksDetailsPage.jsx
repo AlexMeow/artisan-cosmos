@@ -53,10 +53,11 @@ const ArtworkDetailsPage = () => {
                 const res = await fetch("http://localhost:8080/api/works/get-all-works");
                 const data = await res.json();
                 setArtworks(data);
-                setIsLoading(false);
-                Swal.close();
             } catch (error) {
                 console.error('Error fetching artworks:', error);
+            } finally {
+                setIsLoading(false);
+                Swal.close();
             }
         };
     
