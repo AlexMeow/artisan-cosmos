@@ -254,6 +254,7 @@
   width: 200px;
   height: 200px;
   transition: opacity 0.3s ease-in-out;
+  image-rendering: auto;
 }
 
 .user-avatar:hover + .upload-overlay,

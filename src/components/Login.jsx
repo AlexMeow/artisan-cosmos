@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPageBody = () => {
+const Login = () => {
     const navigate = useNavigate();
 
     const [registerData, setRegisterData] = useState({
@@ -23,7 +23,10 @@ const LoginPageBody = () => {
     const [isMinLengthValid, setMinLengthValid] = useState(false);
     const [isDigitAndLetterRequiredValid, setDigitAndLetterRequiredValid] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [eyeClicked, setEyeClicked] = useState(false);
+    const [confirmEyeClicked, setConfirmEyeClicked] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleRegisterChange = (e) => {
         setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -56,9 +59,14 @@ const LoginPageBody = () => {
         setEyeClicked(!eyeClicked);
     };
 
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+        setConfirmEyeClicked(!confirmEyeClicked);
+    };
+
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
-        if (isMinLengthValid && isDigitAndLetterRequiredValid) {
+        if (isMinLengthValid && isDigitAndLetterRequiredValid && (confirmPassword === registerData.password)) {
             try {
                 const dataToSend = {
                     ...registerData
@@ -74,7 +82,7 @@ const LoginPageBody = () => {
                     },
                     body: JSON.stringify(dataToSend)
                 });
-    
+
                 if (res.ok) {
                     Swal.fire({
                         icon: "success",
@@ -83,7 +91,7 @@ const LoginPageBody = () => {
                     });
                     // 登入
                     const { email, password } = registerData;
-    
+
                     try {
                         const dataToSend = {
                             email,
@@ -98,32 +106,26 @@ const LoginPageBody = () => {
                             },
                             body: JSON.stringify(dataToSend)
                         });
-    
+
                         if (res.ok) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Welcome",
-                                text: "Successfully Login!",
-                            });
-    
                             const token = await res.text();
                             console.log(token);
-    
+
                             // Store token into localStorage
                             localStorage.setItem("jwt", token);
-    
+
                             // 解析 JWT 獲取 role
                             const decodedToken = jwtDecode(token);
                             const userRole = decodedToken.role;
-    
+
                             // ================================
                             // 獲取role之後要做的事，TBD
                             console.log('User Role:', userRole);
                             // ================================
-    
+
                             // 跳轉到個人頁面
-                            navigate(`/artist/${decodedToken.id}`);
-    
+                            setTimeout(() => navigate(`/artist/${decodedToken.id}`), 2000);
+
                         } else {
                             const message = await res.text();
                             if (res.status === 401) {
@@ -146,8 +148,8 @@ const LoginPageBody = () => {
                     } catch (error) {
                         console.error(error);
                     }
-    
-    
+
+
                 } else {
                     const message = await res.text();
                     Swal.fire({
@@ -162,6 +164,12 @@ const LoginPageBody = () => {
             } catch (error) {
                 console.error('Error:', error);
             }
+        } else if (confirmPassword !== registerData.password) {
+            Swal.fire({
+                icon: "error",
+                title: "Password different",
+                text: "Please confirm your password again!"
+            });
         } else {
             Swal.fire({
                 icon: "error",
@@ -212,7 +220,7 @@ const LoginPageBody = () => {
                 // ================================
 
                 // 跳轉到個人頁面
-                navigate(`/artist/${decodedToken.id}`);
+                setTimeout(() => navigate(`/artist/${decodedToken.id}`), 2000);
 
             } else {
                 const message = await res.text();
@@ -326,7 +334,6 @@ const LoginPageBody = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-
                                     <label htmlFor="registerPassword">Password</label>
                                     <div className="inputPasswordArea">
                                         <input
@@ -364,6 +371,32 @@ const LoginPageBody = () => {
                                         }
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <label htmlFor="confirmRegisterPassword">Confirm Password</label>
+                                    <div className="inputPasswordArea">
+                                        <input
+                                            id="confirmRegisterPassword"
+                                            className="inputTextArea"
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            name="password"
+                                            value={confirmPassword}
+                                            onChange={(e) => { setConfirmPassword(e.target.value) }}
+                                            required
+                                            style={{ width: "100%" }}
+                                        />
+                                        <FontAwesomeIcon
+                                            style={{
+                                                position: "absolute",
+                                                zIndex: 1,
+                                                right: "1rem"
+                                            }}
+                                            size="lg"
+                                            onClick={toggleConfirmPasswordVisibility}
+                                            icon={confirmEyeClicked ? faEye : faEyeSlash}
+                                            color={confirmEyeClicked ? "#000000" : "#A0A0A0"}
+                                        />
+                                    </div>
+                                </div>
                                 <button type="submit" className="form-button">Register</button>
                             </form>
                         </div>
@@ -374,4 +407,4 @@ const LoginPageBody = () => {
     );
 };
 
-export default LoginPageBody;
+export default Login;

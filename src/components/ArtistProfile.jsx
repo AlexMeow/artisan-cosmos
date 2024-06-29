@@ -203,9 +203,11 @@ const ArtistProfile = ({ artist }) => {
                                 <button className="btn btn-outline-primary main-button" onClick={isEditingBio ? handleBioSave : handleBioEditToggle}>
                                     <FontAwesomeIcon icon={faPencil} /> {isEditingBio ? 'Save Bio' : 'Edit Bio'}
                                 </button>
-                                <button className="btn btn-outline-primary main-button ms-4">
-                                    <FontAwesomeIcon icon={faGear} /> Settings
-                                </button>
+                                <Link to={"/settings"}>
+                                    <button className="btn btn-outline-primary main-button ms-4">
+                                        <FontAwesomeIcon icon={faGear} /> Settings
+                                    </button>
+                                </Link>
 
                             </div>) :
                             (<div className="d-flex align-items-center mt-3">
