@@ -33,7 +33,7 @@ const ArtworkDetails = ({ artwork }) => {
                 </div>
                 <div className="col-md-1"></div>
                 <div className="col-md-4">
-                    <h2 className="mt-3">{artwork.title}</h2>
+                    <h2 className="mb-3">{artwork.name}</h2>
                     <div className="row">
                         <div className="col-md-3">
                             <img className="img-fluid artist-image" src={artwork.artist.avatarUrl}></img>
@@ -46,7 +46,13 @@ const ArtworkDetails = ({ artwork }) => {
 
 
                     {/* <p className="artwork-description">{artwork.description}</p> */}
-                    <div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(artwork.description) }} />
+                    <div className="markdown-content mt-3 mb-3" dangerouslySetInnerHTML={{ __html: mdParser.render(artwork.description) }} />
+
+                    <p className="artwork-details-tags mt-3 mb-3">TAGS: {artwork.tags.map((tag, index) => (
+                        <span key={index}>
+                            {tag}{index < artwork.tags.length - 1 ? ', ' : ''}
+                        </span>
+                    ))}</p>
 
                     <div className="d-flex justify-content-between align-items-center">
                         <button className="btn btn-outline-primary main-button">

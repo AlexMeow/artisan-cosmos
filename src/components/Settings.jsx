@@ -12,6 +12,7 @@ const Settings = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [artistName, setArtistName] = useState('');
   const [password, setPassword] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bmacLink, setBmacLink] = useState('');
   const [isMinLengthValid, setMinLengthValid] = useState(false);
@@ -21,6 +22,7 @@ const Settings = () => {
   const [eyeClicked, setEyeClicked] = useState(false);
   const [confirmEyeClicked, setConfirmEyeClicked] = useState(false);
   const [originalName, setOriginalName] = useState('');
+  const [originalJobTitle, setOriginalJobTitle] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -58,6 +60,8 @@ const Settings = () => {
       const data = await res.json();
       setOriginalName(data.name);
       setArtistName(data.name);
+      setOriginalJobTitle(data.jobTitle);
+      setJobTitle(data.jobTitle);
       setBmacLink(data.bmacLink || '');
       setIsBMACEnabled(!!data.bmacLink);
     } catch (error) {
@@ -111,12 +115,13 @@ const Settings = () => {
       return;
     }
 
-    if ((artistName && artistName != originalName) || (password && confirmPassword)) {
+    if ((artistName && artistName != originalName) || (jobTitle && jobTitle != originalJobTitle) || (password && confirmPassword)) {
       try {
         const dataToSend = {
           name: artistName,
           password,
-          bmacLink: isBMACEnabled ? bmacLink : null
+          jobTitle
+          // bmacLink: isBMACEnabled ? bmacLink : null
         };
 
         const res = await fetch(`http://localhost:8080/api/users/update/${currentUser.id}`, {
@@ -162,8 +167,8 @@ const Settings = () => {
   return (
     <div className="container mt-5">
       <h2>Member Center</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+      <form onSubmit={handleSubmit} className="mt-3">
+        <div className="form-group mb-3">
           <label htmlFor="artistName" className="form-label">Artist Name</label>
           <input
             type="text"
@@ -174,7 +179,18 @@ const Settings = () => {
             placeholder="Enter your name..."
           />
         </div>
-        <div className="mb-3">
+        <div className="form-group mb-3">
+          <label htmlFor="jobTitle" className="form-label">Job Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="jobTitle"
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+            placeholder="Brief introduce your job title..."
+          />
+        </div>
+        <div className="form-group mb-3">
           <label htmlFor="password" className="form-label">Password</label>
           <div className="inputPasswordArea">
             <input
@@ -206,7 +222,7 @@ const Settings = () => {
             }
           </div>
         </div>
-        <div className="mb-3">
+        <div className="form-group mb-3">
           <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
           <div className="inputPasswordArea">
             <input
@@ -236,7 +252,7 @@ const Settings = () => {
           />
           <label className="form-check-label" htmlFor="enableBMAC">Enable Buy Me a Coffee</label>
         </div>
-        <div className="mb-3">
+        <div className="form-group mb-3">
           <label htmlFor="bmacLink" className="form-label">Buy Me a Coffee Link</label>
           <input
             type="text"

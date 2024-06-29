@@ -10,6 +10,8 @@
 6. Artists的頁面自己再做另一個search bar
 7. ArtworkDetails.jsx => 展示單一作品的頁面，從父元件(Gallery)拿props (done)
 8. 考慮用recaptcha驗證
+9. **Browse 加 tags 列表**
+10. **編輯作品**
 
 # MEMO
 前端資料流入口(暫定)

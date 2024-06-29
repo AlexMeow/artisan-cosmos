@@ -414,6 +414,10 @@
 
 }
 
+.artwork-details-tags {
+  color: #666;
+}
+
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;

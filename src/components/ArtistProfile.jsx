@@ -125,10 +125,6 @@ const ArtistProfile = ({ artist }) => {
             }
             const data = await res.json();
             Swal.fire('Success', 'Bio updated successfully', 'success');
-            // setCurrentArtist({
-            //     ...currentArtist,
-            //     bio: data.bio
-            // });
             setIsEditingBio(false);
         } catch (error) {
             console.error('Error updating bio:', error);
@@ -180,7 +176,7 @@ const ArtistProfile = ({ artist }) => {
                 </div>
                 <div className="col-md-9">
                     <h1>{currentArtist.name}</h1>
-                    <h5>{currentArtist.jobTitle}</h5>
+                    <h5 className="mb-3">{currentArtist.jobTitle}</h5>
                     {
                         isEditingBio ? (
                             <div>
