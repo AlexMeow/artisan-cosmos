@@ -64,16 +64,6 @@ const ArtworkDetailsPage = () => {
         fetchArtworks();
     }, []);
 
-    // useEffect(() => {
-    //     if (isLoading) {
-    //         Swal.showLoading();
-    //     } else {
-
-    //     }
-
-    // }, isLoading)
-
-
     let { id } = useParams();
     let artwork = artworks.find(a => a.id == id);
     return (

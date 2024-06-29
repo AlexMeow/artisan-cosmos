@@ -18,7 +18,6 @@ const Navbar = () => {
 
   const logout = () => {
     localStorage.removeItem("jwt");
-    localStorage.removeItem("id");
   };
 
   useEffect(() => {

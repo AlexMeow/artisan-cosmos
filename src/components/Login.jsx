@@ -118,14 +118,17 @@ const LoginPageBody = () => {
                         // Store token into localStorage
                         localStorage.setItem("jwt", token);
 
-                        // 解析 JWT 獲取 role 並記錄id
+                        // 解析 JWT 獲取 role
                         const decodedToken = jwtDecode(token);
                         const userRole = decodedToken.role;
-                        localStorage.setItem("id", decodedToken.id);
+
+                        // ================================
+                        // 獲取role之後要做的事，TBD
                         console.log('User Role:', userRole);
+                        // ================================
 
                         // 跳轉到個人頁面
-                        navigate(`/artist/${localStorage.getItem("id")}`);
+                        navigate(`/artist/${decodedToken.id}`);
 
                     } else {
                         const message = await res.text();
@@ -201,11 +204,14 @@ const LoginPageBody = () => {
                 // 解析 JWT 獲取 role 並記錄id
                 const decodedToken = jwtDecode(token);
                 const userRole = decodedToken.role;
-                localStorage.setItem("id", decodedToken.id);
+
+                // ================================
+                // 獲取role之後要做的事，TBD
                 console.log('User Role:', userRole);
+                // ================================
 
                 // 跳轉到個人頁面
-                navigate(`/artist/${localStorage.getItem("id")}`);
+                navigate(`/artist/${decodedToken.id}`);
 
             } else {
                 const message = await res.text();
@@ -289,6 +295,7 @@ const LoginPageBody = () => {
                                         required
                                     />
                                 </div>
+                                <a href="#">Forgot password?</a>
                                 <button type="submit" className="form-button">Login</button>
                             </form>
                         </div>

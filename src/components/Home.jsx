@@ -97,7 +97,7 @@ const HomePageBody = () => {
 
                         {/* ***** Gallery Start ***** */}
                         {/* 之後會用props傳圖片的資訊進去，固定放八張 */}
-                        <div className="gallery-container">
+                        <div className="general-container">
                             <div className="heading-section">
                                 <h4><em>Latest</em> Artworks</h4>
                             </div>
@@ -106,7 +106,17 @@ const HomePageBody = () => {
                         {/* ***** Gallery End ***** */}
 
                         {/* ***** Artists Start ***** */}
-                        <Artists />
+                        <div className="general-container">
+                            <div className="heading-section">
+                                <h4><em>Recommended</em> Artists</h4>
+                            </div>
+                            <Artists />
+                            <div className="col-lg-12 d-flex justify-content-center">
+                                <Link to="/artists" className="main-button">
+                                    Discover More Artists
+                                </Link>
+                            </div>
+                        </div>
                         {/* ***** Artists End ***** */}
                     </div>
                 </div>

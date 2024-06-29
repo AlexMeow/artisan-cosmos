@@ -155,7 +155,7 @@ a {
 }
 
 a:hover {
-  color: #F99;
+  color: #618dff;
 }
 
 h1,
@@ -968,12 +968,12 @@ Most Popular Style
 --------------------------------------------- 
 */
 
-.artists {
+/* .artists {
   margin-top: 60px;
   padding: 30px;
   background-color: #1f2122;
   border-radius: 23px;
-}
+} */
 
 .artists .item {
   cursor: pointer;

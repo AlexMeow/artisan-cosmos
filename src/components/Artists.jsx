@@ -74,36 +74,29 @@ const Artists = () => {
         // Add more artist objects
     ];
 
-    return (<div className="artists">
-        <div className="row">
-            <div className="col-lg-12">
-                <div className="heading-section">
-                    <h4><em>Recommended</em> Artists</h4>
-                </div>
-                <div className="row">
-                    {artists.map(artist => (
-                        <div className="col-lg-3 col-sm-6">
-                            <Link to={`/artist/${artist.id}`}>
-                                <div className="item">
-                                    <img src={artist.imageUrl} alt="" />
-                                    <h4>{artist.name}<br /><span>{artist.description}</span></h4>
-                                    <ul>
-                                        <li><i><FontAwesomeIcon icon={faUser} /></i> {artist.followers} </li>
-                                        <li><small><i><FontAwesomeIcon icon={faClock} /></i> {artist.memberSince} </small></li>
-                                    </ul>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                    <div className="col-lg-12 d-flex justify-content-center">
-                        <Link to="/artists" className="main-button">
-                            Discover More Artists
-                        </Link>
+    return (
+        <div className="artists container">
+            <div className="row">
+                <div className="col-lg-12">
+                    <div className="row">
+                        {artists.map(artist => (
+                            <div className="col-lg-3 col-sm-6">
+                                <Link to={`/artist/${artist.id}`}>
+                                    <div className="item">
+                                        <img src={artist.imageUrl} alt="" />
+                                        <h4>{artist.name}<br /><span>{artist.description}</span></h4>
+                                        <ul>
+                                            <li><i><FontAwesomeIcon icon={faUser} /></i> {artist.followers} </li>
+                                            <li><small><i><FontAwesomeIcon icon={faClock} /></i> {artist.memberSince} </small></li>
+                                        </ul>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     )
