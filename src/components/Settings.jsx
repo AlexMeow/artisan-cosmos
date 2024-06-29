@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faCircleCheck, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -248,7 +248,10 @@ const Settings = () => {
             disabled={!isBMACEnabled}
           />
         </div>
-        <button type="submit" className="btn btn-primary">Save</button>
+        <button type="submit" className="btn btn-primary main-button"><FontAwesomeIcon icon={faFloppyDisk}/> Save</button>
+        <Link to={`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`}>
+          <button type="button" className="btn btn-secondary ms-3 secondary-button">Cancel</button>
+        </Link>
       </form>
     </div>
   );

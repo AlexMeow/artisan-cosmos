@@ -74,31 +74,34 @@ import Swal from 'sweetalert2';
 //   ];
 
 const ArtistProfilePage = () => {
-    const [artists, setArtists] = useState([]);
+    const [artist, setArtist] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    let { id } = useParams();
+
     useEffect(() => {
-        const fetchArtists = async () => {
+        const fetchArtist = async () => {
             try {
                 setIsLoading(true);
                 Swal.showLoading();
-                const res = await fetch(`http://localhost:8080/api/artist/get-all-artists`);
+                const res = await fetch(`http://localhost:8080/api/artist/${id}`);
+                if (!res.ok) {
+                    throw new Error("User not found");
+                }
                 const data = await res.json();
-                console.log(data);
-                setArtists(data);
+                setArtist(data);
             } catch (error) {
-                console.error('Error fetching artists:', error);
+                console.error('Error fetching artist:', error);
             } finally {
                 setIsLoading(false);
                 Swal.close();
+                console.log(artist);
             }
         };
 
-        fetchArtists();
+        fetchArtist();
     }, []);
 
-    let { id } = useParams();
-    let artist = artists.find(a => a.id == id);
     return (
         <div>
             <Navbar />

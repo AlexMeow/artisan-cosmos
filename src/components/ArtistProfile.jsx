@@ -38,15 +38,17 @@ const ArtistProfile = ({ artist }) => {
 
     useEffect(() => {
         const fetchArtworks = async () => {
-            try {
-                Swal.showLoading();
-                const res = await fetch(`http://localhost:8080/api/works/author/${artist.id}`);
-                const data = await res.json();
-                setArtworks(data);
-            } catch (error) {
-                console.error('Error fetching artworks:', error);
-            } finally {
-                Swal.close();
+            if (artist.id) {
+                try {
+                    Swal.showLoading();
+                    const res = await fetch(`http://localhost:8080/api/works/author/${artist.id}`);
+                    const data = await res.json();
+                    setArtworks(data);
+                } catch (error) {
+                    console.error('Error fetching artworks:', error);
+                } finally {
+                    Swal.close();
+                }
             }
         };
 
@@ -180,26 +182,24 @@ const ArtistProfile = ({ artist }) => {
                     <h1>{currentArtist.name}</h1>
                     <h5>{currentArtist.jobTitle}</h5>
                     {
-                        currentUserId === currentArtist.id ?
-                            isEditingBio ? (
-                                <div>
-                                    <MdEditor
-                                        value={currentArtist.bio}
-                                        renderHTML={(text) => mdParser.render(text)}
-                                        onChange={handleEditorChange}
-                                    />
-                                    <button className="btn btn-danger mt-3" onClick={handleBioEditToggle}>
-                                        <FontAwesomeIcon icon={faTimes} /> Cancel
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio) }} />
-                            ) : (<div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio) }} />)
+                        isEditingBio ? (
+                            <div>
+                                <MdEditor
+                                    value={currentArtist.bio}
+                                    renderHTML={(text) => mdParser.render(text)}
+                                    onChange={handleEditorChange}
+                                />
+                                <button className="btn btn-danger mt-3" onClick={handleBioEditToggle}>
+                                    <FontAwesomeIcon icon={faTimes} /> Cancel
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio || '') }} />
+                        )
                     }
-
                     {
-                        currentUserId === currentArtist.id ?
-                            (<div className="d-flex align-items-center mt-3">
+                        currentUserId === currentArtist.id ? (
+                            <div className="d-flex align-items-center mt-3">
                                 <button className="btn btn-outline-primary main-button" onClick={isEditingBio ? handleBioSave : handleBioEditToggle}>
                                     <FontAwesomeIcon icon={faPencil} /> {isEditingBio ? 'Save Bio' : 'Edit Bio'}
                                 </button>
@@ -208,15 +208,16 @@ const ArtistProfile = ({ artist }) => {
                                         <FontAwesomeIcon icon={faGear} /> Settings
                                     </button>
                                 </Link>
-
-                            </div>) :
-                            (<div className="d-flex align-items-center mt-3">
+                            </div>
+                        ) : (
+                            <div className="d-flex align-items-center mt-3">
                                 <button className="btn btn-outline-primary main-button">
                                     <FontAwesomeIcon icon={faUserPlus} /> Follow
                                 </button>
                                 {/* TBD */}
                                 <img className="btn" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{ height: "60px", width: "217px", marginLeft: "1rem" }} />
-                            </div>)
+                            </div>
+                        )
                     }
                 </div>
             </div>
@@ -231,7 +232,9 @@ const ArtistProfile = ({ artist }) => {
                     </Link>) :
                     (<></>)
             }
-            <Gallery artworks={artworks} />
+            {
+                artworks ? <Gallery artworks={artworks} /> : <></>
+            }
         </div>
     );
 }
