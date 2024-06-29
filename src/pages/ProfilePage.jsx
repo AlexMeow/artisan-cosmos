@@ -9,23 +9,47 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("jwt")) {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // Current time in seconds
+
+        // Check if token is expired
+        if (decodedToken.exp < currentTime) {
+          Swal.fire({
+            icon: "warning",
+            title: "Session Expired",
+            text: "Your session has expired. Please log in again.",
+          });
+          localStorage.removeItem("jwt");
+          navigate("/login");
+        }
+
+        navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        Swal.fire({
+          icon: "warning",
+          title: "Invalid Token",
+          text: "Invalid token detected. Please log in again.",
+        });
+        localStorage.removeItem("jwt");
+        navigate("/login");
+      }
+    } else {
       Swal.fire({
         icon: "warning",
         title: "Oops...",
         text: "Please log in first!",
       });
       navigate("/login");
-    } else {
-      navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
     }
-
-  }, [])
+  }, [navigate]);
 
   return (
     <div>
       <Navbar />
-      {/* TBD: ProfilePageBody */}
       <Footer />
     </div>
   );

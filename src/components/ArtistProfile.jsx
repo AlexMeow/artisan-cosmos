@@ -10,18 +10,17 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 const ArtistProfile = ({ artist }) => {
+    const mdParser = new MarkdownIt();
+
     const [artworks, setArtworks] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
-    const [currentArtist, setCurrentArtist] = useState({});
+    const [currentArtist, setCurrentArtist] = useState(artist);
     const [isEditingBio, setIsEditingBio] = useState(false);
-    const [bioContent, setBioContent] = useState('');
-
-    const mdParser = new MarkdownIt();
 
     // Triggered when props 'artist' changes.
     useEffect(() => {
         setCurrentArtist(artist);
-        setBioContent(artist.bio);
+        // setBioContent(artist.bio);
     }, [artist]);
 
     useEffect(() => {
@@ -117,17 +116,17 @@ const ArtistProfile = ({ artist }) => {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ bio: bioContent })
+                body: JSON.stringify({ bio: currentArtist.bio })
             });
             if (!res.ok) {
                 throw new Error("Failed to update bio");
             }
             const data = await res.json();
             Swal.fire('Success', 'Bio updated successfully', 'success');
-            setCurrentArtist({
-                ...currentArtist,
-                bio: data.bio
-            });
+            // setCurrentArtist({
+            //     ...currentArtist,
+            //     bio: data.bio
+            // });
             setIsEditingBio(false);
         } catch (error) {
             console.error('Error updating bio:', error);
@@ -136,43 +135,56 @@ const ArtistProfile = ({ artist }) => {
     };
 
     const handleEditorChange = ({ html, text }) => {
-        setBioContent(text);
+        setCurrentArtist({
+            ...currentArtist,
+            bio: text
+        })
+        // setBioContent(text);
     };
 
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-md-3 d-flex justify-content-center">
-                    <div className="user-avatar-container">
-                        <img
-                            src={currentArtist.avatarUrl}
-                            className="user-avatar rounded-circle"
-                            alt="Artist Photo"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => document.getElementById('avatarUpload').click()}
-                        />
-                        {currentUserId === currentArtist.id && (
-                            <div className="upload-overlay" onClick={() => document.getElementById('avatarUpload').click()}>
-                                Upload Avatar
+                    {
+                        currentUserId === currentArtist.id ? (
+                            <div className="user-avatar-container">
+                                <img
+                                    src={currentArtist.avatarUrl}
+                                    className="user-avatar rounded-circle"
+                                    alt="Artist Photo"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => document.getElementById('avatarUpload').click()}
+                                />
+                                <div className="upload-overlay" onClick={() => document.getElementById('avatarUpload').click()}>
+                                    Upload Avatar
+                                </div>
+                                <input
+                                    type="file"
+                                    id="avatarUpload"
+                                    style={{ display: 'none' }}
+                                    onChange={handleAvatarUpload}
+                                    accept="image/*"
+                                />
                             </div>
-                        )}
-                        <input
-                            type="file"
-                            id="avatarUpload"
-                            style={{ display: 'none' }}
-                            onChange={handleAvatarUpload}
-                            accept="image/*"
-                        />
-                    </div>
+                        ) : (
+                            <img
+                                src={currentArtist.avatarUrl}
+                                className="user-avatar rounded-circle"
+                                alt="Artist Photo"
+                            />
+                        )
+                    }
                 </div>
                 <div className="col-md-9">
                     <h1>{currentArtist.name}</h1>
+                    <h5>{currentArtist.jobTitle}</h5>
                     {
                         currentUserId === currentArtist.id ?
                             isEditingBio ? (
                                 <div>
                                     <MdEditor
-                                        value={bioContent}
+                                        value={currentArtist.bio}
                                         renderHTML={(text) => mdParser.render(text)}
                                         onChange={handleEditorChange}
                                     />
@@ -181,8 +193,8 @@ const ArtistProfile = ({ artist }) => {
                                     </button>
                                 </div>
                             ) : (
-                                <div className="bio-content" dangerouslySetInnerHTML={{ __html: mdParser.render(bioContent) }} />
-                            ) : (<p>{bioContent}</p>)
+                                <div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio) }} />
+                            ) : (<div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio) }} />)
                     }
 
                     {
@@ -202,7 +214,6 @@ const ArtistProfile = ({ artist }) => {
                                 </button>
                                 {/* TBD */}
                                 <img className="btn" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{ height: "60px", width: "217px", marginLeft: "1rem" }} />
-
                             </div>)
                     }
                 </div>

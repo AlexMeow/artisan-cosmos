@@ -24,7 +24,6 @@ const LoginPageBody = () => {
     const [isDigitAndLetterRequiredValid, setDigitAndLetterRequiredValid] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [eyeClicked, setEyeClicked] = useState(false);
-    const [passwordHasInput, setPasswordHasInput] = useState(false);
 
     const handleRegisterChange = (e) => {
         setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -45,12 +44,6 @@ const LoginPageBody = () => {
         // Regular expression test for containing at least one digit, one lower case and one upper case letter.
         const hasDigitAndLetterRequired = (/\d/.test(value) && /[A-Z]/.test(value) && /[a-z]/.test(value));
 
-        // Check if password has been input, if not, placeholder will be default style.
-        if (value)
-            setPasswordHasInput(true);
-        else
-            setPasswordHasInput(false);
-
         // Update state.
         setMinLengthValid(hasMinLength);
         setDigitAndLetterRequiredValid(hasDigitAndLetterRequired);
@@ -65,108 +58,116 @@ const LoginPageBody = () => {
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const dataToSend = {
-                ...registerData
-            };
-            // 發送dataToSend到後端
-            console.log('Register Data:', dataToSend);
-            const res = await fetch("http://localhost:8080/api/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // TBD
-                    // 'Authorization': `Bearer ${jwt}`
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            if (res.ok) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Welcome",
-                    text: "Successfully Registered!",
+        if (isMinLengthValid && isDigitAndLetterRequiredValid) {
+            try {
+                const dataToSend = {
+                    ...registerData
+                };
+                // 發送dataToSend到後端
+                console.log('Register Data:', dataToSend);
+                const res = await fetch("http://localhost:8080/api/users/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // TBD
+                        // 'Authorization': `Bearer ${jwt}`
+                    },
+                    body: JSON.stringify(dataToSend)
                 });
-                // 登入
-                const { email, password } = registerData;
-
-                try {
-                    const dataToSend = {
-                        email,
-                        password
-                    };
-                    // 發送dataToSend到後端
-                    console.log('Login Data:', dataToSend);
-                    const res = await fetch("http://localhost:8080/api/users/login", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(dataToSend)
+    
+                if (res.ok) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Welcome",
+                        text: "Successfully Registered!",
                     });
-
-                    if (res.ok) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Welcome",
-                            text: "Successfully Login!",
+                    // 登入
+                    const { email, password } = registerData;
+    
+                    try {
+                        const dataToSend = {
+                            email,
+                            password
+                        };
+                        // 發送dataToSend到後端
+                        console.log('Login Data:', dataToSend);
+                        const res = await fetch("http://localhost:8080/api/users/login", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(dataToSend)
                         });
-
-                        const token = await res.text();
-                        console.log(token);
-
-                        // Store token into localStorage
-                        localStorage.setItem("jwt", token);
-
-                        // 解析 JWT 獲取 role
-                        const decodedToken = jwtDecode(token);
-                        const userRole = decodedToken.role;
-
-                        // ================================
-                        // 獲取role之後要做的事，TBD
-                        console.log('User Role:', userRole);
-                        // ================================
-
-                        // 跳轉到個人頁面
-                        navigate(`/artist/${decodedToken.id}`);
-
-                    } else {
-                        const message = await res.text();
-                        if (res.status === 401) {
+    
+                        if (res.ok) {
                             Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "Wrong E-mail or Password!",
-                                footer: '<a href="#">Forgot E-mail or Password?</a>'
+                                icon: "success",
+                                title: "Welcome",
+                                text: "Successfully Login!",
                             });
+    
+                            const token = await res.text();
+                            console.log(token);
+    
+                            // Store token into localStorage
+                            localStorage.setItem("jwt", token);
+    
+                            // 解析 JWT 獲取 role
+                            const decodedToken = jwtDecode(token);
+                            const userRole = decodedToken.role;
+    
+                            // ================================
+                            // 獲取role之後要做的事，TBD
+                            console.log('User Role:', userRole);
+                            // ================================
+    
+                            // 跳轉到個人頁面
+                            navigate(`/artist/${decodedToken.id}`);
+    
                         } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: message,
-                                footer: '<a href="#">Forgot E-mail or Password?</a>'
-                            });
+                            const message = await res.text();
+                            if (res.status === 401) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Wrong E-mail or Password!",
+                                    footer: '<a href="#">Forgot E-mail or Password?</a>'
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: message,
+                                    footer: '<a href="#">Forgot E-mail or Password?</a>'
+                                });
+                            }
+                            throw new Error(`HTTP error! status: ${res.status}`);
                         }
-                        throw new Error(`HTTP error! status: ${res.status}`);
+                    } catch (error) {
+                        console.error(error);
                     }
-                } catch (error) {
-                    console.error(error);
+    
+    
+                } else {
+                    const message = await res.text();
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: message,
+                        footer: '<a href="#">Forgot E-mail or Password?</a>'
+                    });
+                    throw new Error(`HTTP error! status: ${res.status}`);
                 }
-
-
-            } else {
-                const message = await res.text();
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: message,
-                    footer: '<a href="#">Forgot E-mail or Password?</a>'
-                });
-                throw new Error(`HTTP error! status: ${res.status}`);
+                // console.log(message);
+            } catch (error) {
+                console.error('Error:', error);
             }
-            // console.log(message);
-        } catch (error) {
-            console.error('Error:', error);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Invalid Password",
+                text: "Your password is invalid, please try another one!"
+            });
         }
     };
 

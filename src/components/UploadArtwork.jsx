@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import MarkdownIt from 'markdown-it'
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
+import { jwtDecode } from 'jwt-decode';
 
 const UploadArtwork = () => {
     const navigate = useNavigate();
+    const mdParser = new MarkdownIt();
 
     const [workData, setWorkData] = useState({
         name: '',
@@ -11,6 +16,43 @@ const UploadArtwork = () => {
         description: '',
         imgUrls: []
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("jwt");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                const currentTime = Date.now() / 1000; // Current time in seconds
+
+                // Check if token is expired
+                if (decodedToken.exp < currentTime) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Session Expired",
+                        text: "Your session has expired. Please log in again.",
+                    });
+                    localStorage.removeItem("jwt");
+                    navigate("/login");
+                }
+            } catch (error) {
+                console.error("Invalid token:", error);
+                Swal.fire({
+                    icon: "warning",
+                    title: "Invalid Token",
+                    text: "Invalid token detected. Please log in again.",
+                });
+                localStorage.removeItem("jwt");
+                navigate("/login");
+            }
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Oops...",
+                text: "Please log in first!",
+            });
+            navigate("/login");
+        }
+    }, [navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,18 +62,12 @@ const UploadArtwork = () => {
         });
     };
 
-    // const handleFileChange = (e) => {
-    //     const files = Array.from(e.target.files);
-    //     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/jfif', 'image/tiff', 'image/svg+xml'];
-        
-    //     const validFiles = files.filter(file => allowedTypes.includes(file.type));
-    //     const urls = validFiles.map(file => URL.createObjectURL(file));
-        
-    //     setWorkData({
-    //         ...workData,
-    //         imgUrls: urls
-    //     });
-    // };
+    const handleEditorChange = ({ html, text }) => {
+        setWorkData({
+            ...workData,
+            description: text
+        })
+    };
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -81,7 +117,9 @@ const UploadArtwork = () => {
                 title: "Yeah!",
                 text: "Upload Successed!",
             });
-            navigate(`/artist/${localStorage.getItem("id")}`);
+            setTimeout(() => {
+                navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
+            }, 2000)
         } catch (error) {
             console.error('Error uploading artwork:', error);
         }
@@ -90,7 +128,7 @@ const UploadArtwork = () => {
     return (
         <div className="container my-5">
             <h2>Upload New Artwork</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="mt-4">
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
@@ -100,6 +138,7 @@ const UploadArtwork = () => {
                         name="name"
                         value={workData.name}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -115,13 +154,24 @@ const UploadArtwork = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <textarea
+                    <MdEditor
+                        className="form-control"
+                        id="description"
+                        name="description"
+                        value={workData.description}
+                        renderHTML={(text) => mdParser.render(text)}
+                        onChange={handleEditorChange}
+                        placeholder="Write some description with markdown format..."
+                        style={{ height: "200px" }}
+                    />
+                    {/* <textarea
                         className="form-control"
                         id="description"
                         name="description"
                         value={workData.description}
                         onChange={handleInputChange}
-                    />
+                        required
+                    /> */}
                 </div>
                 <div className="form-group">
                     <label htmlFor="imgUrls">Images</label>
@@ -133,6 +183,7 @@ const UploadArtwork = () => {
                         multiple
                         accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/jfif,image/tiff,image/svg+xml"
                         onChange={handleFileChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -143,7 +194,6 @@ const UploadArtwork = () => {
                                     key={index}
                                     src={url}
                                     alt={`Preview ${index}`}
-                                    style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }}
                                 />
                             ))}
                         </div>

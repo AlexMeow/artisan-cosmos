@@ -84,6 +84,7 @@ const ArtistProfilePage = () => {
                 Swal.showLoading();
                 const res = await fetch(`http://localhost:8080/api/artist/get-all-artists`);
                 const data = await res.json();
+                console.log(data);
                 setArtists(data);
             } catch (error) {
                 console.error('Error fetching artists:', error);

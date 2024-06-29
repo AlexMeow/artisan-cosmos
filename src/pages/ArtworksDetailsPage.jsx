@@ -6,41 +6,6 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-// const artworks = [
-//     {
-//         id: 1,
-//         title: 'Beautiful Landscape',
-//         imageUrl: [
-//             require('../assets/images/irene-kredenets-KStSiM1UvPw-unsplash.jpg'),
-//             require('../assets/images/mabi1024x768.jpg'),
-//             require('../assets/images/francesco-ZxNKxnR32Ng-unsplash.jpg')
-//         ],
-//         description: 'This is a beautiful landscape artwork.',
-//         artist: {
-//             id: 1,
-//             name: 'John Doe',
-//             imageUrl: require('../assets/images/chris.jpg'),
-//             description: '雷猴啊'
-//         }
-//     },
-//     {
-//         id: 2,
-//         title: 'HAHAHA',
-//         imageUrl: [
-//             require('../assets/images/5ijrtKutqlxcfCgE7oqORJ.png'),
-//         ],
-//         description: 'This is a beautiful landscape artwork.',
-//         artist: {
-//             id: 1,
-//             name: 'John Doe',
-//             imageUrl: require('../assets/images/chris.jpg'),
-//             description: '雷猴啊'
-//         }
-//     },
-//     // 其他作品
-// ];
-
-
 const ArtworkDetailsPage = () => {
     const [artworks, setArtworks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
