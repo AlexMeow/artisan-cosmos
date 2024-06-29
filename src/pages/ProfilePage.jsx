@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const ProfilePage = () => {
       });
       navigate("/login");
     } else {
-      navigate(`/artist/${localStorage.getItem("id")}`);
+      navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
     }
 
   }, [])

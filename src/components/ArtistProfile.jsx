@@ -9,6 +9,11 @@ import { jwtDecode } from "jwt-decode";
 const ArtistProfile = ({ artist }) => {
     const [artworks, setArtworks] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
+    const [currentArtist, setCurrentArtist] = useState({});
+
+    useEffect(() => {
+        setCurrentArtist(artist);
+    }, currentArtist)
 
     useEffect(() => {
         // 解析JWT並獲取使用者ID
@@ -40,20 +45,88 @@ const ArtistProfile = ({ artist }) => {
         fetchArtworks();
     }, [artist.id]);
 
-    console.log(artist);
+    // console.log(artist);
+
+    const handleAvatarUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Check if the file is larger than 2MB.
+            if (file.size > 2097152) {
+                Swal.fire('Error', 'File size exceeds 2MB.', 'error');
+                return;
+            }
+
+            // Convert image to base64.
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            // onload 會在成功讀取文件時觸發
+            reader.onload = async () => {
+                const base64Image = reader.result;
+
+                try {
+                    const token = localStorage.getItem("jwt");
+                    const res = await fetch(`http://localhost:8080/api/users/${currentUserId}/avatar`, {
+                        method: 'POST',
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ avatar: base64Image })
+                    });
+                    if (!res.ok) {
+                        throw new Error("Failed to upload avatar");
+                    }
+                    const data = await res.json();
+                    Swal.fire('Success', 'Avatar updated successfully', 'success');
+                    // Update  current shown avatar
+                    setCurrentArtist({
+                        ...currentArtist,
+                        avatarUrl: base64Image
+                    })
+                } catch (error) {
+                    console.error('Error uploading avatar:', error);
+                    Swal.fire('Error', 'Failed to upload avatar', 'error');
+                }
+            };
+            reader.onerror = error => {
+                console.error('Error converting file:', error);
+                Swal.fire('Error', 'Failed to read the file', 'error');
+            };
+        }
+    };
 
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-md-3 d-flex justify-content-center">
-                    <img src={artist.avatarUrl} className="user-avatar rounded-circle" alt="Artist Photo" />
+                    <div className="user-avatar-container">
+                        <img
+                            src={currentArtist.avatarUrl}
+                            className="user-avatar rounded-circle"
+                            alt="Artist Photo"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => document.getElementById('avatarUpload').click()}
+                        />
+                        {currentUserId === currentArtist.id && (
+                            <div className="upload-overlay" onClick={() => document.getElementById('avatarUpload').click()}>
+                                Upload Avatar
+                            </div>
+                        )}
+                        <input
+                            type="file"
+                            id="avatarUpload"
+                            style={{ display: 'none' }}
+                            onChange={handleAvatarUpload}
+                            accept="image/*"
+                        />
+                    </div>
                 </div>
                 <div className="col-md-9">
-                    <h1>{artist.name}</h1>
-                    <p>{artist.description}</p>
+                    <h1>{currentArtist.name}</h1>
+                    <p>{currentArtist.bio}</p>
 
                     {
-                        currentUserId === artist.id ? 
+                        currentUserId === currentArtist.id ?
                             (<div className="d-flex align-items-center mt-3">
                                 <button className="btn btn-outline-primary main-button">
                                     <FontAwesomeIcon icon={faPencil} /> Edit Bio
@@ -80,7 +153,7 @@ const ArtistProfile = ({ artist }) => {
             <hr className="my-4" />
             <h2>Artwork Gallery</h2>
             {
-                currentUserId === artist.id ? 
+                currentUserId === currentArtist.id ?
                     (<Link to={"/upload"}>
                         <button className="btn btn-outline-primary main-button mt-4 mb-4">
                             <FontAwesomeIcon icon={faUpload} /> Upload New Artwork

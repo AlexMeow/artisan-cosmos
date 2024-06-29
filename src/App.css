@@ -57,7 +57,8 @@
   overflow: hidden;
   cursor: pointer;
   border-radius: .5rem;
-  height: 200px; /* 設置固定高度 */
+  height: 200px;
+  /* 設置固定高度 */
 }
 
 .gallery-item img {
@@ -243,34 +244,42 @@
   color: #FFFFFF;
 }
 
-/* .google-btn {
-  background-color: #db4437;
+.user-avatar-container {
+  position: relative;
+  display: inline-block;
 }
-
-.google-btn:hover {
-  background-color: #a33626;
-}
-
-.facebook-btn {
-  background-color: #3b5998;
-}
-
-.facebook-btn:hover {
-  background-color: #2d4373;
-}
-
-.twitter-btn {
-  background-color: #1da1f2;
-}
-
-.twitter-btn:hover {
-  background-color: #0d95e8;
-} */
 
 .user-avatar {
-  height: 200px;
-  width: 200px;
   object-fit: cover;
+  width: 200px;
+  height: 200px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.user-avatar:hover + .upload-overlay,
+.upload-overlay:hover {
+  opacity: 1;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  padding: 10px;
+  /* border-radius: 5px; */
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  white-space:nowrap;
+}
+
+.user-avatar:hover {
+  opacity: 0.5;
 }
 
 .artist-image {
