@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Gallery from "./Gallery";
-import { faUserPlus, faUpload, faPencil, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faUpload, faPencil, faGear, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
+import MarkdownIt from 'markdown-it'
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
 
 const ArtistProfile = ({ artist }) => {
     const [artworks, setArtworks] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
     const [currentArtist, setCurrentArtist] = useState({});
+    const [isEditingBio, setIsEditingBio] = useState(false);
+    const [bioContent, setBioContent] = useState('');
 
+    const mdParser = new MarkdownIt();
+
+    // Triggered when props 'artist' changes.
     useEffect(() => {
         setCurrentArtist(artist);
-    }, currentArtist)
+        setBioContent(artist.bio);
+    }, [artist]);
 
     useEffect(() => {
         // 解析JWT並獲取使用者ID
@@ -65,7 +74,7 @@ const ArtistProfile = ({ artist }) => {
 
                 try {
                     const token = localStorage.getItem("jwt");
-                    const res = await fetch(`http://localhost:8080/api/users/${currentUserId}/avatar`, {
+                    const res = await fetch(`http://localhost:8080/api/users/update/${currentUserId}/avatar`, {
                         method: 'POST',
                         headers: {
                             "Authorization": `Bearer ${token}`,
@@ -93,6 +102,41 @@ const ArtistProfile = ({ artist }) => {
                 Swal.fire('Error', 'Failed to read the file', 'error');
             };
         }
+    };
+
+    const handleBioEditToggle = () => {
+        setIsEditingBio(!isEditingBio);
+    };
+
+    const handleBioSave = async () => {
+        try {
+            const token = localStorage.getItem("jwt");
+            const res = await fetch(`http://localhost:8080/api/users/update/${currentUserId}/bio`, {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ bio: bioContent })
+            });
+            if (!res.ok) {
+                throw new Error("Failed to update bio");
+            }
+            const data = await res.json();
+            Swal.fire('Success', 'Bio updated successfully', 'success');
+            setCurrentArtist({
+                ...currentArtist,
+                bio: data.bio
+            });
+            setIsEditingBio(false);
+        } catch (error) {
+            console.error('Error updating bio:', error);
+            Swal.fire('Error', 'Failed to update bio', 'error');
+        }
+    };
+
+    const handleEditorChange = ({ html, text }) => {
+        setBioContent(text);
     };
 
     return (
@@ -123,13 +167,29 @@ const ArtistProfile = ({ artist }) => {
                 </div>
                 <div className="col-md-9">
                     <h1>{currentArtist.name}</h1>
-                    <p>{currentArtist.bio}</p>
+                    {
+                        currentUserId === currentArtist.id ?
+                            isEditingBio ? (
+                                <div>
+                                    <MdEditor
+                                        value={bioContent}
+                                        renderHTML={(text) => mdParser.render(text)}
+                                        onChange={handleEditorChange}
+                                    />
+                                    <button className="btn btn-danger mt-3" onClick={handleBioEditToggle}>
+                                        <FontAwesomeIcon icon={faTimes} /> Cancel
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="bio-content" dangerouslySetInnerHTML={{ __html: mdParser.render(bioContent) }} />
+                            ) : (<p>{bioContent}</p>)
+                    }
 
                     {
                         currentUserId === currentArtist.id ?
                             (<div className="d-flex align-items-center mt-3">
-                                <button className="btn btn-outline-primary main-button">
-                                    <FontAwesomeIcon icon={faPencil} /> Edit Bio
+                                <button className="btn btn-outline-primary main-button" onClick={isEditingBio ? handleBioSave : handleBioEditToggle}>
+                                    <FontAwesomeIcon icon={faPencil} /> {isEditingBio ? 'Save Bio' : 'Edit Bio'}
                                 </button>
                                 <button className="btn btn-outline-primary main-button ms-4">
                                     <FontAwesomeIcon icon={faGear} /> Settings
@@ -145,9 +205,6 @@ const ArtistProfile = ({ artist }) => {
 
                             </div>)
                     }
-
-
-
                 </div>
             </div>
             <hr className="my-4" />
