@@ -69,7 +69,7 @@ const HomePageBody = () => {
                             <div className="heading-section">
                                 <h4><em>Latest</em> Artworks</h4>
                             </div>
-                            <Gallery artworks={artworks.length > 8 ? (artworks.slice(artworks.length - 8, artworks.length)) : (artworks)} />
+                            <Gallery artworks={artworks.length > 8 ? (artworks.slice(artworks.length - 8, artworks.length).reverse()) : (artworks)} />
                         </div>
                         {/* ***** Gallery End ***** */}
 
