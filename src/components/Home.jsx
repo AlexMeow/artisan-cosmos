@@ -9,64 +9,136 @@ const artworks = [
     {
         id: 1,
         imgUrls: [require('../assets/images/5ijrtKutqlxcfCgE7oqORJ.png')],
-        title: 'Electron HBD',
-        author: 'Chris Meow',
-        authorAvatar: require('../assets/images/chris.jpg')
+        name: 'Electron HBD',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/chris.jpg')
+        }
     },
     {
         id: 2,
         imgUrls: [require('../assets/images/francesco-ZxNKxnR32Ng-unsplash.jpg')],
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-        authorAvatar: require('../assets/images/animal_chara_radio_penguin.png')
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/chris.jpg')
+        }
 
     },
     {
         id: 3,
         imgUrls: [require('../assets/images/steve-johnson-e5LdlAMpkEw-unsplash.jpg')],
-        title: 'Artwork Title 1',
-        author: 'John Doe',
-        authorAvatar: require('../assets/images/pexels-stefanstefancik-91224.jpg')
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/chris.jpg')
+        }
 
     },
     {
         id: 4,
         imgUrls: [require('../assets/images/emre-han-akcay-xwgBzMnZLhU-unsplash.jpg')],
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-        authorAvatar: require('../assets/images/animal_chara_radio_penguin.png')
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/animal_chara_radio_penguin.png')
+        }
 
     },
     {
         id: 5,
         imgUrls: [require('../assets/images/Fred.png')],
-        title: 'Fred Portrait',
-        author: 'Chris Meow',
-        authorAvatar: require('../assets/images/chris.jpg')
+        name: 'Fred Portrait',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/animal_chara_radio_penguin.png')
+        }
 
     },
     {
         id: 6,
         imgUrls: [require('../assets/images/irene-kredenets-KStSiM1UvPw-unsplash.jpg')],
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-        authorAvatar: require('../assets/images/animal_chara_radio_penguin.png')
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/animal_chara_radio_penguin.png')
+        }
 
     },
     {
         id: 7,
         imgUrls: [require('../assets/images/MattHBD.png')],
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-        authorAvatar: require('../assets/images/animal_chara_radio_penguin.png')
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/animal_chara_radio_penguin.png')
+        }
 
     },
     {
         id: 8,
         imgUrls: [require('../assets/images/mabi1024x768.jpg')],
-        title: 'Artwork Title 1',
-        author: 'Author Name 1',
-        authorAvatar: 'https://picsum.photos/200/300'
+        name: 'Artwork name 1',
+        artist: {
+            "id": 2,
+            "name": "Chris Meow",
+            "jobTitle": "UI/UX designer",
+            "bio": "# I'm WWW\nHello!000",
+            "createdDate": "2024-06-29T13:38:23.000+00:00",
+            "uploadWorks": null,
+            "followers": null,
+            "following": null,
+            "avatarUrl": require('../assets/images/animal_chara_radio_penguin.png')
+        }
 
     }
     // Add more artwork objects

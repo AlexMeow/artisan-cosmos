@@ -143,6 +143,14 @@ const Settings = () => {
           setTimeout(() => {
             navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`)
           }, 2000)
+        } else if (res.status === 401) {
+          const message = await res.text();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Your token is invalid >:(",
+          });
+          throw new Error(`HTTP error! status: ${res.status}`);
         } else {
           const message = await res.text();
           Swal.fire({

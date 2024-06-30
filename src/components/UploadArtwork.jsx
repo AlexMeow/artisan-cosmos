@@ -102,7 +102,7 @@ const UploadArtwork = () => {
 
             console.log(dataToSend);
 
-            const response = await fetch('http://localhost:8080/api/works/upload', {
+            const res = await fetch('http://localhost:8080/api/works/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,16 +110,32 @@ const UploadArtwork = () => {
                 },
                 body: JSON.stringify(dataToSend)
             });
-            const result = await response.json();
-            console.log(result);
-            Swal.fire({
-                icon: "success",
-                title: "Yeah!",
-                text: "Upload Successed!",
-            });
-            setTimeout(() => {
-                navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
-            }, 2000)
+            const message = await res.text();
+            if (res.ok) {
+                console.log(message);
+                Swal.fire({
+                    icon: "success",
+                    title: "Yeah!",
+                    text: "Upload Successed!",
+                });
+                setTimeout(() => {
+                    navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
+                }, 2000)
+            } else if (res.status === 401) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Your token is invalid >:(",
+                });
+                throw new Error(`HTTP error! status: ${res.status}`);
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: message,
+                });
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
         } catch (error) {
             console.error('Error uploading artwork:', error);
         }
@@ -200,6 +216,8 @@ const UploadArtwork = () => {
                     )}
                 </div>
                 <button type="submit" className="btn btn-primary">Upload</button>
+                <button type="button" className="btn btn-secondary ms-3" onClick={() => {navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
+}}>Cancel</button>
             </form>
         </div>
     );

@@ -84,7 +84,7 @@ const ArtistProfilePage = () => {
             try {
                 setIsLoading(true);
                 Swal.showLoading();
-                const res = await fetch(`http://localhost:8080/api/artist/${id}`);
+                const res = await fetch(`http://localhost:8080/api/artists/${id}`);
                 if (!res.ok) {
                     throw new Error("User not found");
                 }
