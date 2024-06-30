@@ -180,14 +180,6 @@ const UploadArtwork = () => {
                         placeholder="Write some description with markdown format..."
                         style={{ height: "200px" }}
                     />
-                    {/* <textarea
-                        className="form-control"
-                        id="description"
-                        name="description"
-                        value={workData.description}
-                        onChange={handleInputChange}
-                        required
-                    /> */}
                 </div>
                 <div className="form-group">
                     <label htmlFor="imgUrls">Images</label>

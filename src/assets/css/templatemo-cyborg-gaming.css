@@ -229,6 +229,19 @@ label {
   border-radius: 23px;
 }
 
+.general-button {
+  font-size: 14px;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
 .main-button {
   font-size: 14px;
   color: #fff;
@@ -881,12 +894,15 @@ Header Style
   .header-area.header-sticky .nav {
     margin-top: 65px !important;
     text-align: center;
-    max-height: 0; /* 設置初始最大高度 */
-    transition: max-height 0.2s ease-out; /* 設置動畫效果 */
+    max-height: 0;
+    /* 設置初始最大高度 */
+    transition: max-height 0.2s ease-out;
+    /* 設置動畫效果 */
   }
 
   .header-area.header-sticky .nav.show {
-    max-height: 300px; /* 展開時的最大高度，可以調整 */
+    max-height: 300px;
+    /* 展開時的最大高度，可以調整 */
   }
 
   .background-header.header-sticky .nav {
@@ -1062,7 +1078,7 @@ Most Popular Style
   overflow: hidden;
   text-overflow: ellipsis;
   /* 設置最大字符數為14 */
-  max-width: 14ch;
+  max-width: 12ch;
 }
 
 .artists .item ul {
@@ -1982,7 +1998,7 @@ body {
 
 @media (min-width: 576px) {
   .col-sm-6 {
-      flex: 0 0 auto;
+    flex: 0 0 auto;
   }
 }
 

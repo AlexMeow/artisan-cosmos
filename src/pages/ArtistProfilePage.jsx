@@ -94,7 +94,6 @@ const ArtistProfilePage = () => {
                 console.error('Error fetching artist:', error);
             } finally {
                 setIsLoading(false);
-                Swal.close();
                 console.log(artist);
             }
         };

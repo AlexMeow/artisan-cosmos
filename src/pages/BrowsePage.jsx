@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Browse from '../components/Browse';
+import TagButtons from '../components/TagButtons';
 
 const BrowsePage = () => {
+  const [selectedTag, setSelectedTag] = useState(null);
+
+  const handleSelectTag = (tag) => {
+    setSelectedTag(tag);
+  };
+  
   return (
     <div>
       <Navbar />
-      <Browse />
+      <TagButtons onSelectTag={handleSelectTag} />
+      <Browse selectedTag={selectedTag} />
       <Footer />
     </div>
   );

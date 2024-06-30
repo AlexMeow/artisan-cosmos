@@ -195,7 +195,7 @@ const ArtistProfile = ({ artist }) => {
                     }
                     {
                         currentUserId === currentArtist.id ? (
-                            <div className="d-flex align-items-center mt-3">
+                            <div className="d-flex align-items-center mt-3 button-group">
                                 <button className="btn btn-outline-primary main-button" onClick={isEditingBio ? handleBioSave : handleBioEditToggle}>
                                     <FontAwesomeIcon icon={faPencil} /> {isEditingBio ? 'Save Bio' : 'Edit Bio'}
                                 </button>

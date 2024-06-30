@@ -117,11 +117,14 @@ const Settings = () => {
 
     if ((artistName && artistName != originalName) || (jobTitle && jobTitle != originalJobTitle) || (password && confirmPassword)) {
       try {
-        const dataToSend = {
+        const dataToSend = password ? {
           name: artistName,
           password,
           jobTitle
           // bmacLink: isBMACEnabled ? bmacLink : null
+        } : {
+          name: artistName,
+          jobTitle
         };
 
         const res = await fetch(`http://localhost:8080/api/users/update/${currentUser.id}`, {

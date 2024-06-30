@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Artists from '../components/Artists';
+import Swal from 'sweetalert2';
 
 const ArtistsPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [artists, setArtist] = useState(null);
+
+  useEffect(() => {
+    const fetchArtists = async () => {
+      try {
+        setIsLoading(true);
+        Swal.showLoading();
+        const res = await fetch("http://localhost:8080/api/artists/get-all-artists");
+        const data = await res.json();
+        setArtist(data);
+      } catch (error) {
+        console.error('Error fetching artworks:', error);
+      } finally {
+        setIsLoading(false);
+        Swal.close();
+      }
+    };
+
+    fetchArtists();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -11,7 +34,7 @@ const ArtistsPage = () => {
         <div className="heading-section">
           <h4><em>Recommended</em> Artists</h4>
         </div>
-        <Artists />
+        {!isLoading && (<Artists artists={artists} />)}
         <div className="col-lg-12 d-flex justify-content-center">
           <a to="/artists" className="main-button">
             Load more

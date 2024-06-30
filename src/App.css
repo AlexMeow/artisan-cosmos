@@ -418,6 +418,11 @@
   color: #666;
 }
 
+.tag-buttons {
+  margin-top: 60px;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
@@ -432,5 +437,9 @@
 
   .artist-image {
     max-width: 50%;
+  }
+
+  .button-group {
+    justify-content: space-between;
   }
 }

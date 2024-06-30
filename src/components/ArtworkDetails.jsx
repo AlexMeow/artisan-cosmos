@@ -185,7 +185,7 @@ const ArtworkDetails = ({ artwork }) => {
                     {isEditing ? (
                         <div>
                             {editedArtwork.imgUrls.map((url, index) => (
-                                <div key={index} className="mb-3">
+                                <div key={index} className="mb-5">
                                     <input
                                         type="file"
                                         id={`imageUpload${index}`}
@@ -214,14 +214,14 @@ const ArtworkDetails = ({ artwork }) => {
                                     style={{ display: 'none' }}
                                     onChange={handleAddImage}
                                 />
-                                <label htmlFor="addImage" className="btn btn-success">
+                                <label htmlFor="addImage" className="btn btn-success general-button">
                                     <FontAwesomeIcon icon={ faPlus } /> Add New Image
                                 </label>
                             </div>
                         </div>
                     ) : (
                         currentArtwork.imgUrls.length > 1 ? (
-                            <Carousel>
+                            <Carousel className="mb-sm-3">
                                 {currentArtwork.imgUrls.map((url, index) => (
                                     <Carousel.Item key={index}>
                                         <img
@@ -234,7 +234,7 @@ const ArtworkDetails = ({ artwork }) => {
                             </Carousel>
                         ) : (
                             <img
-                                className="d-block w-100"
+                                className="d-block w-100 mb-sm-3"
                                 src={currentArtwork.imgUrls[0]}
                                 alt={`${currentArtwork.name}`}
                             />
