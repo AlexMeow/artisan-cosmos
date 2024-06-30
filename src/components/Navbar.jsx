@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import '../vendor/bootstrap/css/bootstrap.min.css';
 import '../assets/css/templatemo-cyborg-gaming.css';
 import '../assets/css/owl.css';
@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [menuActive, setMenuActive] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -18,6 +19,8 @@ const Navbar = () => {
 
   const logout = () => {
     localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -100,9 +103,9 @@ const Navbar = () => {
                 <li className="nav-item">
                   {!isLoggedIn ? (<NavLink to="/login" className="nav-link" activeClassName="active">
                     Sign In / Sign Up
-                  </NavLink>) : (<NavLink to="/" className="nav-link" activeClassName="active" onClick={logout}>
+                  </NavLink>) : (<a className="nav-link" activeClassName="active" onClick={logout}>
                     Log out
-                  </NavLink>)}
+                  </a>)}
                 </li>
               </ul>
               {/* MENU TRIGGER */}

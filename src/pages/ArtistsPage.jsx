@@ -32,9 +32,9 @@ const ArtistsPage = () => {
       <Navbar />
       <div className="container mt-5">
         <div className="heading-section">
-          <h4><em>Recommended</em> Artists</h4>
+          <h4><em>All</em> Artists</h4>
         </div>
-        {!isLoading && (<Artists artists={artists} />)}
+        {!isLoading && (artists ? <Artists artists={artists} /> : <></>)}
         <div className="col-lg-12 d-flex justify-content-center">
           <a to="/artists" className="main-button">
             Load more

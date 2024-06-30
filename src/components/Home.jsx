@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 const HomePageBody = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [artworks, setArtworks] = useState([]);
-    const [artists, setArtist] = useState(null);
+    const [artists, setArtist] = useState([]);
 
     useEffect(() => {
         const fetchWorksAndArtists = async () => {
@@ -26,7 +26,10 @@ const HomePageBody = () => {
                 const data = await res.json();
                 setArtworks(data);
                 const data2 = await res2.json();
-                setArtist(data2);
+                // 排序藝術家數據，根據追蹤者數量從多到少
+                const sortedArtists = data2.sort((a, b) => b.followers.length - a.followers.length);
+                setArtist(sortedArtists);
+                console.log(artists);
             } catch (error) {
                 console.error('Error fetching works:', error);
             } finally {
@@ -75,7 +78,7 @@ const HomePageBody = () => {
                             <div className="heading-section">
                                 <h4><em>Recommended</em> Artists</h4>
                             </div>
-                            {!isLoading && (<Artists artists={artists} />)}
+                            {!isLoading && (<Artists artists={artists.length > 8 ? (artists.slice(0, 8)) : (artists)} />)}
                             <div className="col-lg-12 d-flex justify-content-center">
                                 <Link to="/artists" className="main-button">
                                     Discover More Artists

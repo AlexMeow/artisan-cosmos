@@ -1303,6 +1303,10 @@ Featured Games Style
   color: #618dff;
 }
 
+.nav-link {
+  cursor: pointer;
+}
+
 .top-downloaded {
   border-radius: 23px;
   background-color: #1f2122;

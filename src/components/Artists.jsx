@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faUser, faClock } from '@fortawesome/free-solid-svg-icons';
-import Swal from "sweetalert2";
+import { faUser, faClock } from '@fortawesome/free-solid-svg-icons';
 
 const Artists = ({ artists }) => {
     return (

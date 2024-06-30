@@ -158,7 +158,7 @@ const UploadArtwork = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="tags">Tags</label>
+                    <label htmlFor="tags">Tags (Split tags by white space.)</label>
                     <input
                         type="text"
                         className="form-control"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Gallery from "./Gallery";
-import { faUserPlus, faUpload, faPencil, faGear, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faUpload, faPencil, faGear, faTimes, faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ const ArtistProfile = ({ artist }) => {
     const [currentUserId, setCurrentUserId] = useState(null);
     const [currentArtist, setCurrentArtist] = useState(artist);
     const [isEditingBio, setIsEditingBio] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
 
     // Triggered when props 'artist' changes.
     useEffect(() => {
@@ -55,7 +56,49 @@ const ArtistProfile = ({ artist }) => {
         fetchArtworks();
     }, [artist.id]);
 
-    // console.log(artist);
+    useEffect(() => {
+        const checkFollowing = async () => {
+            if (currentUserId && artist.id) {
+                try {
+                    const res = await fetch(`http://localhost:8080/api/users/${currentUserId}/following/${artist.id}`);
+                    const data = await res.json();
+                    setIsFollowing(data.isFollowing);
+                } catch (error) {
+                    console.error('Error checking following status:', error);
+                }
+            }
+        };
+
+        checkFollowing();
+    }, [currentUserId, artist.id]);
+
+    const handleFollowToggle = async () => {
+        const token = localStorage.getItem("jwt");
+        if (!token) {
+            Swal.fire("Error", "Please log in first!", "error");
+            return;
+        }
+
+        try {
+            const res = await fetch(`http://localhost:8080/api/users/${currentUserId}/follow/${artist.id}`, {
+                method: isFollowing ? 'DELETE' : 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (res.ok) {
+                setIsFollowing(!isFollowing);
+                Swal.fire("Success", `You have ${isFollowing ? 'unfollowed' : 'followed'} ${artist.name}`, "success");
+            } else {
+                throw new Error("Failed to update following status");
+            }
+        } catch (error) {
+            console.error('Error updating following status:', error);
+            Swal.fire("Error", "Failed to update following status", "error");
+        }
+    };
 
     const handleAvatarUpload = async (e) => {
         const file = e.target.files[0];
@@ -175,7 +218,7 @@ const ArtistProfile = ({ artist }) => {
                     }
                 </div>
                 <div className="col-md-9">
-                    <h1>{currentArtist.name}</h1>
+                    <h1 className="mb-2">{currentArtist.name}</h1>
                     <h5 className="mb-3">{currentArtist.jobTitle}</h5>
                     {
                         isEditingBio ? (
@@ -207,8 +250,8 @@ const ArtistProfile = ({ artist }) => {
                             </div>
                         ) : (
                             <div className="d-flex align-items-center mt-3">
-                                <button className="btn btn-outline-primary main-button">
-                                    <FontAwesomeIcon icon={faUserPlus} /> Follow
+                                <button className="btn btn-outline-primary main-button" onClick={handleFollowToggle}>
+                                    <FontAwesomeIcon icon={isFollowing ? faUserMinus : faUserPlus} /> {isFollowing ? 'Unfollow' : 'Follow'}
                                 </button>
                                 {/* TBD */}
                                 <img className="btn" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{ height: "60px", width: "217px", marginLeft: "1rem" }} />
