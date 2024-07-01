@@ -8,9 +8,13 @@ const BrowsePage = () => {
   const [selectedTag, setSelectedTag] = useState(null);
 
   const handleSelectTag = (tag) => {
+    if (tag == selectedTag) {
+      setSelectedTag(null);
+    } else {
     setSelectedTag(tag);
+    }
   };
-  
+
   return (
     <div>
       <Navbar />

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import '../vendor/bootstrap/css/bootstrap.min.css';
 import '../assets/css/templatemo-cyborg-gaming.css';
-import '../assets/css/owl.css';
 import '../assets/css/animate.css';
 import LOGO from '../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

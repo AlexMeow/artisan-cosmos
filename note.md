@@ -12,6 +12,9 @@
 8. 考慮用recaptcha驗證
 9. **Browse 加 tags 列表**
 10. **編輯作品**
+11. Markdown比較是for工程師 DEMO的時候要詳細講一下怎麼用
+12. DEMO前準備好要上傳的頭圖和作品圖片
+13. 沒實作的功能別講 RRRRRR
 
 # MEMO
 前端資料流入口(暫定)

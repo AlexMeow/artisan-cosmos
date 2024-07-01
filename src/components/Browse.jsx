@@ -8,6 +8,7 @@ const Browse = ({ selectedTag }) => {
     const [artworks, setArtworks] = useState([]);
 
     useEffect(() => {
+        console.log(selectedTag);
         const fetchArtworks = async () => {
             try {
                 let url = "http://localhost:8080/api/works/get-all-works";

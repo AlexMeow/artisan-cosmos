@@ -11,7 +11,6 @@ import SettingsPage from './pages/SettingsPage';
 import UploadArtworkPage from './pages/UploadArtworkPage';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './assets/css/templatemo-cyborg-gaming.css';
-import './assets/css/owl.css';
 import './assets/css/animate.css';
 import './App.css';
 
