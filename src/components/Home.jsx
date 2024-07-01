@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Artists from './Artists';
 import Gallery from './Gallery';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
-const HomePageBody = () => {
+const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [artworks, setArtworks] = useState([]);
     const [artists, setArtist] = useState([]);
@@ -93,4 +93,4 @@ const HomePageBody = () => {
     );
 };
 
-export default HomePageBody;
+export default Home;

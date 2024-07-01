@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faStar, faPencil, faSave, faTimes, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faStar, faPencil, faSave, faTimes, faTrash, faPlus, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { Carousel } from 'react-bootstrap';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -178,6 +178,20 @@ const ArtworkDetails = ({ artwork }) => {
 
     };
 
+    const handleImageSort = (index, direction) => {
+        const updatedImgUrls = [...editedArtwork.imgUrls];
+        if (direction === 'up' && index > 0) {
+            [updatedImgUrls[index], updatedImgUrls[index - 1]] = [updatedImgUrls[index - 1], updatedImgUrls[index]];
+        } else if (direction === 'down' && index < updatedImgUrls.length - 1) {
+            [updatedImgUrls[index], updatedImgUrls[index + 1]] = [updatedImgUrls[index + 1], updatedImgUrls[index]];
+        }
+        setEditedArtwork({
+            ...editedArtwork,
+            imgUrls: updatedImgUrls
+        });
+    };
+
+
     return (
         <div className="container my-5">
             <div className="row">
@@ -193,12 +207,26 @@ const ArtworkDetails = ({ artwork }) => {
                                         style={{ display: 'none' }}
                                         onChange={(e) => handleImageChange(index, e)}
                                     />
-                                    <label htmlFor={`imageUpload${index}`} className="btn main-button">
-                                        Change Image
-                                    </label>
-                                    <button className="btn danger-button ms-2" onClick={() => handleRemoveImage(index)}>
+                                    <div className="d-flex justify-content-between mt-2 w-75">
+                                        <label htmlFor={`imageUpload${index}`} className="btn main-button">
+                                            Change Image
+                                        </label>
+                                        <button className="btn btn-secondary general-button" onClick={() => handleImageSort(index, 'up')}>
+                                            <FontAwesomeIcon icon={faArrowUp} />
+                                        </button>
+                                        <button className="btn btn-secondary general-button" onClick={() => handleImageSort(index, 'down')}>
+                                            <FontAwesomeIcon icon={faArrowDown} />
+                                        </button>
+                                        {
+                                            editedArtwork.imgUrls.length === 1 ? <></> : <button className="btn btn-danger general-button" onClick={() => handleRemoveImage(index)}>
+                                                <FontAwesomeIcon icon={faTrash} /> Remove
+                                            </button>
+                                        }
+
+                                    </div>
+                                    {/* <button className="btn danger-button ms-2" onClick={() => handleRemoveImage(index)}>
                                         <FontAwesomeIcon icon={faTrash} /> Remove Image
-                                    </button>
+                                    </button> */}
                                     <img
                                         className="d-block w-100 mt-2"
                                         src={url}
@@ -215,7 +243,7 @@ const ArtworkDetails = ({ artwork }) => {
                                     onChange={handleAddImage}
                                 />
                                 <label htmlFor="addImage" className="btn btn-success general-button">
-                                    <FontAwesomeIcon icon={ faPlus } /> Add New Image
+                                    <FontAwesomeIcon icon={faPlus} /> Add New Image
                                 </label>
                             </div>
                         </div>
