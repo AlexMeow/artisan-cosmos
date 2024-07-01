@@ -71,6 +71,18 @@ const UploadArtwork = () => {
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
+        let isInvalidFile = false;
+
+        files.forEach(file => {
+            // 檢查檔案類型是否為圖片
+            if (!file.type.startsWith('image/')) {
+                Swal.fire('Error', 'Invalid file type. Only image files are allowed.', 'error');
+                isInvalidFile = true;
+            }
+        });
+        if (isInvalidFile)
+            return;
+
         const promises = files.map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -90,6 +102,12 @@ const UploadArtwork = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (workData.imgUrls.length === 0) {
+            Swal.fire('Oops...', 'No files selected!', 'warning');
+            return;
+        }
+
         const token = localStorage.getItem('jwt');
         try {
             // Split tags by white space.
@@ -189,7 +207,7 @@ const UploadArtwork = () => {
                         id="imgUrls"
                         name="imgUrls"
                         multiple
-                        accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/jfif,image/tiff,image/svg+xml"
+                        accept="image/*"
                         onChange={handleFileChange}
                         required
                     />
@@ -208,8 +226,9 @@ const UploadArtwork = () => {
                     )}
                 </div>
                 <button type="submit" className="btn btn-primary">Upload</button>
-                <button type="button" className="btn btn-secondary ms-3" onClick={() => {navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
-}}>Cancel</button>
+                <button type="button" className="btn btn-secondary ms-3" onClick={() => {
+                    navigate(`/artist/${jwtDecode(localStorage.getItem("jwt")).id}`);
+                }}>Cancel</button>
             </form>
         </div>
     );

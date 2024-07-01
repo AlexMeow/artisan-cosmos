@@ -102,6 +102,13 @@ const ArtistProfile = ({ artist }) => {
 
     const handleAvatarUpload = async (e) => {
         const file = e.target.files[0];
+
+        // 檢查檔案類型是否為圖片
+        if (!file.type.startsWith('image/')) {
+            Swal.fire('Error', 'Invalid file type. Only image files are allowed.', 'error');
+            return;
+        }
+
         if (file) {
             // Check if the file is larger than 2MB.
             if (file.size > 2097152) {
