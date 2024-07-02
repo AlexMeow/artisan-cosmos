@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faStar, faPencil, faSave, faTimes, faTrash, faPlus, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faStar, faPencil, faSave, faTimes, faTrash, faPlus, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { Carousel } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
@@ -369,10 +369,10 @@ const ArtworkDetails = ({ artwork }) => {
                             </div>
                         ) : (
                             <div className="d-flex justify-content-between align-items-center">
-                                <button className="btn btn-outline-primary main-button">
-                                    <FontAwesomeIcon icon={faHeart} /> Like
-                                </button>
                                 <button className="btn btn-outline-secondary secondary-button">
+                                    <FontAwesomeIcon icon={faThumbsUp} /> Like
+                                </button>
+                                <button className="btn btn-outline-primary main-button">
                                     <FontAwesomeIcon icon={faStar} /> Favorite
                                 </button>
                                 <button className="btn btn-outline-primary main-button" onClick={handleEditToggle}>
@@ -382,10 +382,10 @@ const ArtworkDetails = ({ artwork }) => {
                         )
                     ) : (
                         <div className="d-flex justify-content-between align-items-center">
-                            <button className="btn btn-outline-primary main-button">
-                                <FontAwesomeIcon icon={faHeart} /> Like
-                            </button>
                             <button className="btn btn-outline-secondary secondary-button">
+                                <FontAwesomeIcon icon={faThumbsUp} /> Like
+                            </button>
+                            <button className="btn btn-outline-primary main-button">
                                 <FontAwesomeIcon icon={faStar} /> Favorite
                             </button>
                         </div>
