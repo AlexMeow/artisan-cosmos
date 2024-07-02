@@ -5,23 +5,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
-import MarkdownIt from 'markdown-it'
-import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
+import Editor from 'react-simple-wysiwyg';
 
 const ArtistProfile = ({ artist }) => {
-    const mdParser = new MarkdownIt();
-
     const [artworks, setArtworks] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
     const [currentArtist, setCurrentArtist] = useState(artist);
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
+    const [bioContent, setBioContent] = useState("");
 
     // Triggered when props 'artist' changes.
     useEffect(() => {
         setCurrentArtist(artist);
-        // setBioContent(artist.bio);
+        setBioContent(artist.bio);
     }, [artist]);
 
     useEffect(() => {
@@ -168,7 +165,7 @@ const ArtistProfile = ({ artist }) => {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ bio: currentArtist.bio })
+                body: JSON.stringify({ bio: bioContent })
             });
             if (!res.ok) {
                 throw new Error("Failed to update bio");
@@ -182,12 +179,12 @@ const ArtistProfile = ({ artist }) => {
         }
     };
 
-    const handleEditorChange = ({ html, text }) => {
+    const handleEditorChange = (e) => {
+        setBioContent(e.target.value);
         setCurrentArtist({
             ...currentArtist,
-            bio: text
+            bio: e.target.value
         })
-        // setBioContent(text);
     };
 
     return (
@@ -230,17 +227,18 @@ const ArtistProfile = ({ artist }) => {
                     {
                         isEditingBio ? (
                             <div>
-                                <MdEditor
-                                    value={currentArtist.bio}
-                                    renderHTML={(text) => mdParser.render(text)}
-                                    onChange={handleEditorChange}
-                                />
+                                <div className="editor">
+                                    <Editor
+                                        onChange={handleEditorChange}
+                                        value={bioContent}
+                                    />
+                                </div>
                                 <button className="btn btn-danger mt-3" onClick={handleBioEditToggle}>
                                     <FontAwesomeIcon icon={faTimes} /> Cancel
                                 </button>
                             </div>
                         ) : (
-                            <div className="markdown-content" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtist.bio || '') }} />
+                            <div className="wysiwyg-content" dangerouslySetInnerHTML={{ __html: currentArtist.bio }} />
                         )
                     }
                     {

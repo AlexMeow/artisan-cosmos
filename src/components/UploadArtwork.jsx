@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import MarkdownIt from 'markdown-it'
-import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
 import { jwtDecode } from 'jwt-decode';
+import Editor from 'react-simple-wysiwyg';
 
 const UploadArtwork = () => {
     const navigate = useNavigate();
-    const mdParser = new MarkdownIt();
 
+    const [description, setDescription] = useState("");
     const [workData, setWorkData] = useState({
         name: '',
         tags: '',
@@ -62,10 +60,11 @@ const UploadArtwork = () => {
         });
     };
 
-    const handleEditorChange = ({ html, text }) => {
+    const handleEditorChange = (e) => {
+        setDescription(e.target.value);
         setWorkData({
             ...workData,
-            description: text
+            description: e.target.value
         })
     };
 
@@ -74,9 +73,12 @@ const UploadArtwork = () => {
         let isInvalidFile = false;
 
         files.forEach(file => {
-            // 檢查檔案類型是否為圖片
+            // 檢查檔案類型是否為圖片、容量是否小於20MB
             if (!file.type.startsWith('image/')) {
                 Swal.fire('Error', 'Invalid file type. Only image files are allowed.', 'error');
+                isInvalidFile = true;
+            } else if (file.size > 20971520) {
+                Swal.fire('Error', 'File size exceeds 20MB.', 'error');
                 isInvalidFile = true;
             }
         });
@@ -188,19 +190,16 @@ const UploadArtwork = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <MdEditor
-                        className="form-control"
-                        id="description"
-                        name="description"
-                        value={workData.description}
-                        renderHTML={(text) => mdParser.render(text)}
-                        onChange={handleEditorChange}
-                        placeholder="Write some description with markdown format..."
-                        style={{ height: "200px" }}
-                    />
+                    <div className="form-control editor">
+                        <Editor
+                            value={description}
+                            onChange={handleEditorChange}
+                            placeholder="Write some description..."
+                        />
+                    </div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="imgUrls">Images</label>
+                    <label htmlFor="imgUrls">Images (Each file must be less than 20 MB.)</label>
                     <input
                         type="file"
                         className="form-control"

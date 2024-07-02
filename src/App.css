@@ -294,7 +294,59 @@
   margin: 1rem 0;
 }
 
-.markdown-content {
+.editor {
+  background-color: #fff;
+  color: black;
+}
+
+/* 標題樣式 */
+.editor h1,
+.editor h2,
+.editor h3,
+.editor h4,
+.editor h5,
+.editor h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: black;
+}
+
+/* 列表樣式 */
+.editor ul,
+.editor ol {
+  padding-left: 2em;
+}
+
+.editor ul li {
+  list-style-type: disc;
+}
+
+.editor ol li {
+  list-style-type: decimal;
+}
+
+/* 列表項目樣式 */
+.editor li {
+  margin-bottom: 0.5em;
+}
+
+/* 區塊引用樣式 */
+.editor blockquote {
+  margin: 1rem 0;
+  padding: 0.5em 10px;
+  border-left: 3px solid #6a6a6a;
+  color: #515151;
+  /* background: #f8f8f8; */
+}
+
+.editor img {
+  width: auto;
+  height: auto;
+
+}
+
+.wysiwyg-content {
   /* 基本樣式 */
   font-family: inherit;
   font-size: inherit;
@@ -304,38 +356,38 @@
 }
 
 /* 標題樣式 */
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4,
-.markdown-content h5,
-.markdown-content h6 {
+.wysiwyg-content h1,
+.wysiwyg-content h2,
+.wysiwyg-content h3,
+.wysiwyg-content h4,
+.wysiwyg-content h5,
+.wysiwyg-content h6 {
   margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: bold;
 }
 
 /* 列表樣式 */
-.markdown-content ul,
-.markdown-content ol {
+.wysiwyg-content ul,
+.wysiwyg-content ol {
   padding-left: 2em;
 }
 
-.markdown-content ul li {
+.wysiwyg-content ul li {
   list-style-type: disc;
 }
 
-.markdown-content ol li {
+.wysiwyg-content ol li {
   list-style-type: decimal;
 }
 
 /* 列表項目樣式 */
-.markdown-content li {
+.wysiwyg-content li {
   margin-bottom: 0.5em;
 }
 
 /* 區塊引用樣式 */
-.markdown-content blockquote {
+.wysiwyg-content blockquote {
   margin: 1rem 0;
   padding: 0.5em 10px;
   border-left: 3px solid #ccc;
@@ -343,7 +395,7 @@
   /* background: #f8f8f8; */
 }
 
-.markdown-content img {
+.wysiwyg-content img {
   width: auto;
   height: auto;
 

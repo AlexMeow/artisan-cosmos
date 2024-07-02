@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStar, faPencil, faSave, faTimes, faTrash, faPlus, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { Carousel } from 'react-bootstrap';
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import Editor from 'react-simple-wysiwyg';
 
 const ArtworkDetails = ({ artwork }) => {
-    const mdParser = new MarkdownIt();
     const navigate = useNavigate();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -69,6 +66,14 @@ const ArtworkDetails = ({ artwork }) => {
     const handleImageChange = (index, e) => {
         const file = e.target.files[0];
         if (file) {
+            if (!file.type.startsWith('image/')) {
+                Swal.fire('Error', 'Invalid file type. Only image files are allowed.', 'error');
+                return;
+            } else if (file.size > 20971520) {
+                Swal.fire('Error', 'File size exceeds 20MB.', 'error');
+                return;
+            }
+
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
@@ -85,6 +90,13 @@ const ArtworkDetails = ({ artwork }) => {
     const handleAddImage = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (!file.type.startsWith('image/')) {
+                Swal.fire('Error', 'Invalid file type. Only image files are allowed.', 'error');
+                return;
+            } else if (file.size > 20971520) {
+                Swal.fire('Error', 'File size exceeds 20MB.', 'error');
+                return;
+            }
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
@@ -224,9 +236,6 @@ const ArtworkDetails = ({ artwork }) => {
                                         }
 
                                     </div>
-                                    {/* <button className="btn danger-button ms-2" onClick={() => handleRemoveImage(index)}>
-                                        <FontAwesomeIcon icon={faTrash} /> Remove Image
-                                    </button> */}
                                     <img
                                         className="d-block w-100 mt-2"
                                         src={url}
@@ -249,7 +258,7 @@ const ArtworkDetails = ({ artwork }) => {
                         </div>
                     ) : (
                         currentArtwork.imgUrls.length > 1 ? (
-                            <Carousel className="mb-sm-3">
+                            <Carousel className="mb-3">
                                 {currentArtwork.imgUrls.map((url, index) => (
                                     <Carousel.Item key={index}>
                                         <img
@@ -262,7 +271,7 @@ const ArtworkDetails = ({ artwork }) => {
                             </Carousel>
                         ) : (
                             <img
-                                className="d-block w-100 mb-sm-3"
+                                className="d-block w-100 mb-3"
                                 src={currentArtwork.imgUrls[0]}
                                 alt={`${currentArtwork.name}`}
                             />
@@ -296,15 +305,14 @@ const ArtworkDetails = ({ artwork }) => {
                     </div>
 
                     {isEditing ? (
-                        <MdEditor
-                            className="mt-3 mb-3"
-                            value={editedArtwork.description}
-                            style={{ height: '200px' }}
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={({ text }) => setEditedArtwork({ ...editedArtwork, description: text })}
-                        />
+                        <div className="editor">
+                            <Editor
+                                onChange={ e => setEditedArtwork({ ...editedArtwork, description: e.target.value })}
+                                value={editedArtwork.description}
+                            />
+                        </div>
                     ) : (
-                        <div className="markdown-content mt-3 mb-3" dangerouslySetInnerHTML={{ __html: mdParser.render(currentArtwork.description) }} />
+                        <div className="wysiwyg-content mt-3 mb-3" dangerouslySetInnerHTML={{ __html: currentArtwork.description }} />
                     )}
 
                     {isEditing ? (
