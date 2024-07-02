@@ -291,7 +291,17 @@ const ArtworkDetails = ({ artwork }) => {
                             />
                         </div>
                     ) : (
-                        <h2 className="mb-3">{currentArtwork.name}</h2>
+                        <div className="mb-3">
+                            <h2>{currentArtwork.name}</h2>
+                            <small>{new Date(artwork.createdDate).toLocaleString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                second: "numeric"
+                            })}</small>
+                        </div>
                     )}
 
                     <div className="row">
@@ -307,7 +317,7 @@ const ArtworkDetails = ({ artwork }) => {
                     {isEditing ? (
                         <div className="editor">
                             <Editor
-                                onChange={ e => setEditedArtwork({ ...editedArtwork, description: e.target.value })}
+                                onChange={e => setEditedArtwork({ ...editedArtwork, description: e.target.value })}
                                 value={editedArtwork.description}
                             />
                         </div>
