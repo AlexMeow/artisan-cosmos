@@ -154,6 +154,10 @@ const ArtistProfile = ({ artist }) => {
 
     const handleBioEditToggle = () => {
         setIsEditingBio(!isEditingBio);
+        if (!isEditingBio) {
+            // 如果按下Cancel，還原bio內文
+            // setBioContent(artist.bio);
+        }
     };
 
     const handleBioSave = async () => {

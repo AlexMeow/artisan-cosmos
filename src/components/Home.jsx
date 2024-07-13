@@ -64,12 +64,11 @@ const Home = () => {
                         {/* ***** Banner End ***** */}
 
                         {/* ***** Gallery Start ***** */}
-                        {/* 之後會用props傳圖片的資訊進去，固定放八張 */}
                         <div className="general-container">
                             <div className="heading-section">
                                 <h4><em>Latest</em> Artworks</h4>
                             </div>
-                            <Gallery artworks={artworks.length > 8 ? (artworks.slice(artworks.length - 8, artworks.length).reverse()) : (artworks)} />
+                            <Gallery artworks={artworks.length > 8 ? (artworks.slice(artworks.length - 8, artworks.length).reverse()) : (artworks).reverse()} />
                         </div>
                         {/* ***** Gallery End ***** */}
 
